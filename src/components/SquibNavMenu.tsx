@@ -65,7 +65,7 @@ export function NavigationMenuDemo() {
                   >
                     {/* <Icons.logo className="h-6 w-6" /> */}
                     <div className="mb-2 mt-4 text-lg font-medium">
-                      Hi, I'm Squib!
+                      Hi, I&apos;m Squib!
                     </div>
                     <p className="text-sm leading-tight text-muted-foreground">
                       I play video games and write code sometimes.
