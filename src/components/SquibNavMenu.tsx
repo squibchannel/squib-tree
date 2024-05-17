@@ -51,8 +51,8 @@ export const socials: { title: string; href: string; description: string }[] = [
 
 export function NavigationMenuDemo() {
   return (
-    <NavigationMenu className="flex items-start">
-      <NavigationMenuList className="w-screen h-auto flex-row items-start justify-start p-2">
+    <NavigationMenu className="flex items-start fixed top-0">
+      <NavigationMenuList className="w-screen h-auto flex-row items-start justify-start p-2 pr-5">
         <NavigationMenuItem className="">
           <NavigationMenuTrigger>squib_channel</NavigationMenuTrigger>
           <NavigationMenuContent>
@@ -63,7 +63,6 @@ export function NavigationMenuDemo() {
                     className="flex h-full w-full select-none flex-col justify-end rounded-md bg-gradient-to-b from-muted/50 to-muted p-6 no-underline outline-none focus:shadow-md"
                     href="/"
                   >
-                    {/* <Icons.logo className="h-6 w-6" /> */}
                     <div className="mb-2 mt-4 text-lg font-medium">
                       Hi, I&apos;m Squib!
                     </div>

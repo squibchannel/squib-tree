@@ -25,7 +25,7 @@ const SocialCard: React.FC<SocialCardProps> = ({
   href,
 }) => {
   return (
-    <Card id={key + "-social-card"} className="w-1/2">
+    <Card id={key + "-social-card"} className="w-min-plus-2rem">
       <CardHeader className="flex-row gap-5 items-center">
         <CardTitle>
           <SocialIcon network={title} href={href} target="_blank" />
