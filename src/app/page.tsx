@@ -7,7 +7,7 @@ import { socials } from "@/components/SquibNavMenu";
 
 export default function Home() {
   return (
-    <main className="flex flex-col min-h-screen items-center justify-around p-24 pt-0 mt-10">
+    <main className="flex flex-col min-h-screen items-center justify-center p-24 pt-0 mt-12">
       <NavigationMenuDemo></NavigationMenuDemo>
       <SquibTitleCard></SquibTitleCard>
       <div className="flex flex-col gap-5">

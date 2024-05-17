@@ -30,7 +30,9 @@ const SocialCard: React.FC<SocialCardProps> = ({
         <CardTitle>
           <SocialIcon network={title} href={href} target="_blank" />
         </CardTitle>
-        <CardDescription>{description}</CardDescription>
+        <CardDescription className="text-xl font-extrabold">
+          {description}
+        </CardDescription>
       </CardHeader>
       {/* <CardContent>{content}</CardContent> */}
     </Card>
