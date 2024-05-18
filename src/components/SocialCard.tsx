@@ -46,7 +46,7 @@ const SocialCard: React.FC<SocialCardProps> = ({
         <CardTitle onClick={() => playSound(bitSounds)}>
           <SocialIcon network={title} href={href} target="_blank" />
         </CardTitle>
-        <CardDescription className="text-xl font-extrabold text-white">
+        <CardDescription className="text-xl font-extrabold">
           {description}
         </CardDescription>
       </CardHeader>
