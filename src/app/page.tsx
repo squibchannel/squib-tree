@@ -1,9 +1,10 @@
-"use client";
+
 
 import SquibTitleCard from "@/components/SquibTitleCard";
 import { NavigationMenuDemo } from "@/components/SquibNavMenu";
 import SocialCard from "@/components/SocialCard";
-import { socials } from "@/components/SquibNavMenu";
+import { socials } from "@/lib/const";
+
 
 export default function Home() {
   return (
