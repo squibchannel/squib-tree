@@ -1,8 +1,12 @@
 "use client";
 
-// import * as React from "react";
-
-import { Card, CardHeader, CardTitle, CardDescription, CardContent } from "@/components/ui/card";
+import {
+  Card,
+  CardHeader,
+  CardTitle,
+  CardDescription,
+  CardContent,
+} from "@/components/ui/card";
 import { SocialIcon } from "react-social-icons";
 
 interface SocialCardProps {
@@ -22,8 +26,12 @@ const bitSounds = [
   "/sounds/negative_beeps-6008.mp3",
 ];
 
-const SocialCard: React.FC<SocialCardProps> = ({ key, title, description, href }) => {
-  
+const SocialCard: React.FC<SocialCardProps> = ({
+  key,
+  title,
+  description,
+  href,
+}) => {
   function playSound(sounds: string[]) {
     const randomIndex = Math.floor(Math.random() * sounds.length);
     const audio = new Audio(sounds[randomIndex]);
@@ -39,12 +47,18 @@ const SocialCard: React.FC<SocialCardProps> = ({ key, title, description, href }
 
   return (
     <>
-      <Card key={key + "-social-card"} className="hover:bg-slate-950 cursor-pointer" onClick={handleClick}>
+      <Card
+        key={key + "-social-card"}
+        className="hover:bg-slate-950 cursor-pointer"
+        onClick={handleClick}
+      >
         <CardHeader className="flex-row gap-5 items-center">
           <CardTitle>
             <SocialIcon network={title} href={href} target="_blank" />
           </CardTitle>
-          <CardDescription className="text-xl font-extrabold">{description}</CardDescription>
+          <CardDescription className="text-xl font-extrabold">
+            {description}
+          </CardDescription>
         </CardHeader>
         {/* <CardContent>{content}</CardContent> */}
       </Card>
