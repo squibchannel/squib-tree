@@ -1,4 +1,4 @@
-"use client";
+// "use client";
 
 import * as React from "react";
 
@@ -14,8 +14,6 @@ import {
 } from "@/components/ui/navigation-menu";
 import { ModeToggle } from "./ModeToggle";
 import { socials } from "@/lib/const";
-
-
 
 export function NavigationMenuDemo() {
   return (
@@ -107,3 +105,4 @@ const ListItem = React.forwardRef<
 });
 
 ListItem.displayName = "ListItem";
+export { socials };

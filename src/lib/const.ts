@@ -31,4 +31,4 @@ export const socials: { title: string; href: string; description: string }[] = [
     href: "https://github.com/squibchannel",
     description: "I write code sometimes and when I do I put it on the hub.",
   },
-];
+
