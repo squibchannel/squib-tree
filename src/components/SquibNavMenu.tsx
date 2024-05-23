@@ -13,8 +13,10 @@ import {
 import { ModeToggle } from "./ModeToggle";
 import { socials } from "@/lib/const";
 import { ComponentPropsWithoutRef, ElementRef, forwardRef } from "react";
+import { Button } from "./ui/button";
+import AuthButton from "./AuthButton";
 
-export function NavigationMenuDemo() {
+export function SquibNavMenu() {
   return (
     <NavigationMenu className="flex items-start fixed top-0">
       <NavigationMenuList className="w-screen h-auto flex-row items-start justify-start p-2 pr-5">
@@ -72,6 +74,7 @@ export function NavigationMenuDemo() {
             </ul>
           </NavigationMenuContent>
         </NavigationMenuItem>
+        <AuthButton></AuthButton>
         <ModeToggle></ModeToggle>
       </NavigationMenuList>
     </NavigationMenu>

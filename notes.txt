@@ -9,3 +9,17 @@ Hashtag Generator
 
 #TODO: Small Goals
 - Let others use their own api key for requests 
+
+
+#FIXME: Auth Flow:
+
+-- "/" The homepage is the "linktree" clone ie SquibTree
+-- -- You do not need an authentication to access this
+
+-- You may login with button and get redirected
+-- -- If logged in then show "tools" and "dashboard"
+-- -- -- If !apiKeys or required config for said tool or tools display dialog saying "please configure at dashboard"
+
+-- -- Need some sort of personal dashboard that allows you to configure tools
+-- -- Have a profile page that displays Twitch info
+-- -- 

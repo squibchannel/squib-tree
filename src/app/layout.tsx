@@ -3,6 +3,7 @@ import { Inter, Silkscreen } from "next/font/google";
 import "./globals.css";
 import { ThemeProvider } from "@/providers/theme-provider";
 import { Toaster } from "sonner";
+// import TwitchSessionProvider from "@/providers/twitch-session-provider";
 
 // const inter = Inter({ subsets: ["latin"] });
 const silk = Silkscreen({ weight: "400", subsets: ["latin"] });

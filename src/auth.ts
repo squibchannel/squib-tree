@@ -14,8 +14,8 @@ export const { handlers, signIn, signOut, auth } = NextAuth({
   ],
 
   events: {
-    signIn: ({ isNewUser }) => {
-      console.log(isNewUser);
+    signIn: ({ user }) => {
+      console.log(user);
     },
   },
 });
