@@ -6,7 +6,6 @@ import React, {
   useOptimistic,
   useState,
 } from "react";
-import { toast } from "sonner";
 
 // Define the type for the context
 export interface contextProps {
@@ -43,4 +42,3 @@ export const MarqueeProvider = ({ children }: Props) => {
     <MarqueeContext.Provider value={value}>{children}</MarqueeContext.Provider>
   );
 };
-//  add the slider from shad CN

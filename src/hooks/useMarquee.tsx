@@ -15,5 +15,3 @@ function useMarquee(): contextProps {
 }
 
 export default useMarquee;
-
-// so now we can use it and we have auto compleet for VS

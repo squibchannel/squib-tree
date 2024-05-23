@@ -14,7 +14,6 @@ export default function TagCard({ tag }: Props) {
     navigator.clipboard.writeText(tag);
 
     toast.success(`${tag} has been copied to your clipboard`);
-    // try it
   };
 
   return (

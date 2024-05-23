@@ -3,8 +3,6 @@
 import { simpleFetch } from "@/actions/blablablaapi";
 import Marquee from "@/components/ui/marquee";
 import { testTags } from "@/lib/const";
-import { cn } from "@/lib/utils";
-import MarqueeSlider from "@/components/MarqueeSlider";
 import TagCard from "@/components/TagCard";
 
 export default async function HashGen() {
@@ -24,19 +22,12 @@ export default async function HashGen() {
   return (
     <div className="main">
       <div className="relative flex h-96 flex-row items-center justify-center overflow-hidden rounded-lg border bg-background sm:px-20 md:shadow-xl">
-        {/* for the memes */}
-        {/* page has to be client xD
-         */}
-        {/* OWW wait */}
         <Marquee pauseOnHover reverse>
           {testTags.map((tag, index) => (
             <TagCard key={index} tag={tag} />
           ))}
         </Marquee>
-
-        {/* now i am going to be lazy*/}
       </div>
-      <MarqueeSlider />
     </div>
   );
 }

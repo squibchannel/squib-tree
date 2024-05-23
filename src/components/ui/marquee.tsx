@@ -1,7 +1,5 @@
 "use client";
 import { cn } from "@/lib/utils";
-import useMarquee from "@/hooks/useMarquee";
-import { useRef, useEffect } from "react";
 
 interface MarqueeProps {
   className?: string;
@@ -22,38 +20,11 @@ export default function Marquee({
   repeat = 4,
   ...props
 }: MarqueeProps) {
-  const { speed } = useMarquee();
-  const containerRef = useRef<HTMLDivElement>(null);
-
-  useEffect(() => {
-    // check if we have the ref
-
-    if (containerRef && containerRef.current) {
-      console.log("set speed");
-
-      const existingDuration = containerRef.current.style.getPropertyValue(
-        `--duration:${speed}s`
-      );
-      if (existingDuration) {
-        console.log("does exist" + existingDuration);
-      }
-
-      containerRef.current.style.setProperty(
-        `--duration:${speed}s`,
-        `${speed}s`
-      );
-      return;
-    }
-
-    console.log("ref not found");
-  }, [speed, containerRef]);
-
   return (
     <div
       {...props}
-      ref={containerRef}
       className={cn(
-        "group flex overflow-hidden p-2  [--gap:1rem] [gap:var(--gap)]",
+        "group flex overflow-hidden p-2 [--duration:200s] [--gap:1rem] [gap:var(--gap)]",
         {
           "flex-row": !vertical,
           "flex-col": vertical,
@@ -66,16 +37,12 @@ export default function Marquee({
         .map((_, i) => (
           <div
             key={i}
-            className={cn(
-              "flex shrink-0 justify-around [gap:var(--gap)]",
-              {
-                "animate-marquee flex-row": !vertical,
-                "animate-marquee-vertical flex-col": vertical,
-                "group-hover:[animation-play-state:paused]": pauseOnHover,
-                "[animation-direction:reverse]": reverse,
-              }
-              // IDK pretty sure it does not work with the slider
-            )}
+            className={cn("flex shrink-0 justify-around [gap:var(--gap)]", {
+              "animate-marquee flex-row": !vertical,
+              "animate-marquee-vertical flex-col": vertical,
+              "group-hover:[animation-play-state:paused]": pauseOnHover,
+              "[animation-direction:reverse]": reverse,
+            })}
           >
             {children}
           </div>
@@ -83,6 +50,3 @@ export default function Marquee({
     </div>
   );
 }
-
-// gonna try 1 more thing
-// move the slider
