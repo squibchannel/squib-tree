@@ -1,0 +1,11 @@
+Hashtag Generator
+
+#TODO: Main Goals:
+- Once a day grab top hashtags and display them
+    - Check for a difference daily and don't call if x percentage
+
+- Be able to enter keyword and display relevant hashtags
+- Enter an image and display tags
+
+#TODO: Small Goals
+- Let others use their own api key for requests 
