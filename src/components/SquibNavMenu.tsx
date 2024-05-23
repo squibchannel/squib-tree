@@ -57,7 +57,7 @@ export function SquibNavMenu() {
             </ul>
           </NavigationMenuContent>
         </NavigationMenuItem>
-        <NavigationMenuItem className="flex-auto">
+        <NavigationMenuItem>
           <NavigationMenuTrigger>socials</NavigationMenuTrigger>
           <NavigationMenuContent>
             <ul className="grid w-[400px] gap-3 p-4 md:w-[500px] md:grid-cols-2 lg:w-[600px] ">
@@ -74,8 +74,22 @@ export function SquibNavMenu() {
             </ul>
           </NavigationMenuContent>
         </NavigationMenuItem>
-        <AuthButton></AuthButton>
-        <ModeToggle></ModeToggle>
+        <NavigationMenuItem className="flex-auto">
+          <NavigationMenuTrigger>Tools</NavigationMenuTrigger>
+          <NavigationMenuContent>
+            <ul className="grid w-[400px] gap-3 p-4 md:w-[500px] md:grid-cols-2 lg:w-[600px] ">
+              <ListItem
+                key="hashgen-link"
+                title="Hash Generator"
+                href="/hashgen"
+              ></ListItem>
+            </ul>
+          </NavigationMenuContent>
+        </NavigationMenuItem>
+        <AuthButton />
+        <span className="!ml-4">
+          <ModeToggle />
+        </span>
       </NavigationMenuList>
     </NavigationMenu>
   );

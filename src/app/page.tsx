@@ -5,8 +5,7 @@ import { socials } from "@/lib/const";
 
 export default function Home() {
   return (
-    <main className="flex flex-col min-h-screen items-center justify-center p-24 pt-0 mt-12">
-      <SquibNavMenu></SquibNavMenu>
+    <div className="flex flex-col min-h-screen items-center justify-center p-24 pt-0 ">
       <SquibTitleCard></SquibTitleCard>
       <div className="flex flex-col gap-5">
         {socials.map((social) => (
@@ -18,6 +17,6 @@ export default function Home() {
           />
         ))}
       </div>
-    </main>
+    </div>
   );
 }

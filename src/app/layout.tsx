@@ -3,6 +3,8 @@ import { Inter, Silkscreen } from "next/font/google";
 import "./globals.css";
 import { ThemeProvider } from "@/providers/theme-provider";
 import { Toaster } from "sonner";
+import { SessionProvider } from "next-auth/react";
+import { SquibNavMenu } from "@/components/SquibNavMenu";
 // import TwitchSessionProvider from "@/providers/twitch-session-provider";
 
 // const inter = Inter({ subsets: ["latin"] });
@@ -21,15 +23,20 @@ export default function RootLayout({
   return (
     <html lang="en" suppressHydrationWarning>
       <body className={silk.className}>
-        <ThemeProvider
-          attribute="class"
-          defaultTheme="system"
-          enableSystem
-          disableTransitionOnChange
-        >
-          {children}
-          <Toaster theme="dark" />
-        </ThemeProvider>
+        <SessionProvider>
+          <ThemeProvider
+            attribute="class"
+            defaultTheme="system"
+            enableSystem
+            disableTransitionOnChange
+          >
+            <SquibNavMenu />
+
+            <main className="mt-20">{children}</main>
+
+            <Toaster theme="dark" position="top-center" richColors />
+          </ThemeProvider>
+        </SessionProvider>
       </body>
     </html>
   );

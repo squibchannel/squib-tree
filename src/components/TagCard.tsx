@@ -10,9 +10,7 @@ interface Props {
 
 export default function TagCard({ tag }: Props) {
   const handleClick = () => {
-    // copy to clip board
     navigator.clipboard.writeText(tag);
-
     toast.success(`${tag} has been copied to your clipboard`);
   };
 
@@ -20,7 +18,7 @@ export default function TagCard({ tag }: Props) {
     <figure
       onClick={handleClick}
       className={cn(
-        "relative h-40 w-36 cursor-pointer overflow-hidden rounded-xl border p-4",
+        "relative h-40 w-fit min-w-36 cursor-pointer overflow-hidden rounded-xl border p-4",
         // light styles
         "border-gray-950/[.1] bg-gray-950/[.01] hover:bg-gray-950/[.05]",
         // dark styles
