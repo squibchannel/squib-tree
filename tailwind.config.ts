@@ -53,14 +53,13 @@ const config = {
           foreground: "hsl(var(--card-foreground))",
         },
         animation: {},
-        // we have keyframe here as a object and here
       },
       borderRadius: {
         lg: "var(--radius)",
         md: "calc(var(--radius) - 2px)",
         sm: "calc(var(--radius) - 4px)",
       },
-      // we have keyframe here as a object
+
       keyframes: {
         "accordion-down": {
           from: { height: "0" },
@@ -91,3 +90,5 @@ const config = {
 } satisfies Config;
 
 export default config;
+
+// gonna yeet in gpt

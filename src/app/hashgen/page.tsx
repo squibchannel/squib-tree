@@ -4,6 +4,7 @@ import { simpleFetch } from "@/actions/blablablaapi";
 import Marquee from "@/components/ui/marquee";
 import { testTags } from "@/lib/const";
 import TagCard from "@/components/TagCard";
+import { auth } from "@/auth";
 
 export default async function HashGen() {
   // const hashKey = process.env.HASHGEN_KEY!;

@@ -60,7 +60,6 @@ const SocialCard: React.FC<SocialCardProps> = ({
             {description}
           </CardDescription>
         </CardHeader>
-        {/* <CardContent>{content}</CardContent> */}
       </Card>
     </>
   );

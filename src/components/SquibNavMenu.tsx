@@ -13,8 +13,10 @@ import {
 import { ModeToggle } from "./ModeToggle";
 import { socials } from "@/lib/const";
 import { ComponentPropsWithoutRef, ElementRef, forwardRef } from "react";
+import { Button } from "./ui/button";
+import AuthButton from "./AuthButton";
 
-export function NavigationMenuDemo() {
+export function SquibNavMenu() {
   return (
     <NavigationMenu className="flex items-start fixed top-0">
       <NavigationMenuList className="w-screen h-auto flex-row items-start justify-start p-2 pr-5">
@@ -55,7 +57,7 @@ export function NavigationMenuDemo() {
             </ul>
           </NavigationMenuContent>
         </NavigationMenuItem>
-        <NavigationMenuItem className="flex-auto">
+        <NavigationMenuItem>
           <NavigationMenuTrigger>socials</NavigationMenuTrigger>
           <NavigationMenuContent>
             <ul className="grid w-[400px] gap-3 p-4 md:w-[500px] md:grid-cols-2 lg:w-[600px] ">
@@ -72,7 +74,22 @@ export function NavigationMenuDemo() {
             </ul>
           </NavigationMenuContent>
         </NavigationMenuItem>
-        <ModeToggle></ModeToggle>
+        <NavigationMenuItem className="flex-auto">
+          <NavigationMenuTrigger>Tools</NavigationMenuTrigger>
+          <NavigationMenuContent>
+            <ul className="grid w-[400px] gap-3 p-4 md:w-[500px] md:grid-cols-2 lg:w-[600px] ">
+              <ListItem
+                key="hashgen-link"
+                title="Hash Generator"
+                href="/hashgen"
+              ></ListItem>
+            </ul>
+          </NavigationMenuContent>
+        </NavigationMenuItem>
+        <AuthButton />
+        <span className="!ml-4">
+          <ModeToggle />
+        </span>
       </NavigationMenuList>
     </NavigationMenu>
   );

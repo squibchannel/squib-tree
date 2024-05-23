@@ -26,18 +26,6 @@ export default function SquibTitleCard() {
           />
         </CardDescription>
       </CardHeader>
-      {/* <CardContent className="text-center">
-        <p>Hello and welcome to the squib_channel!</p>
-      </CardContent> */}
-      {/* <CardFooter>
-        <Link
-          className={buttonVariants({ variant: "outline" })}
-          href="https://www.twitch.tv/squib_channel"
-          target="_blank"
-        >
-          Click here
-        </Link>
-      </CardFooter> */}
     </Card>
   );
 }
