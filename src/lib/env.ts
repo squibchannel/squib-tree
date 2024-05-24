@@ -11,6 +11,8 @@ const envSchema = z.object({
   // twitch
   AUTH_TWITCH_ID: z.string(),
   AUTH_TWITCH_SECRET: z.string(),
+
+  // hashgen
 });
 
 export const env = envSchema.parse(process.env);

@@ -32,7 +32,7 @@ export default function RootLayout({
           >
             <SquibNavMenu />
 
-            <main className="mt-20">{children}</main>
+            <main className="mt-320">{children}</main>
 
             <Toaster theme="dark" position="top-center" richColors />
           </ThemeProvider>
