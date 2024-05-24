@@ -16,7 +16,7 @@ import useTags from "@/hooks/useTags";
 
 function KeywordHashSearch() {
   const [keyword, setKeyword] = useState("");
-  const { updateTags } = useTags();
+  const { updateTags, updateTitle } = useTags();
 
   const handleInputChange = (e: ChangeEvent<HTMLInputElement>) => {
     setKeyword(e.target.value);
@@ -33,6 +33,7 @@ function KeywordHashSearch() {
     }
 
     updateTags(res.tags);
+    updateTitle(`Top ${res.tags.length} Keywords Related to ${keyword}`);
   };
 
   return (
