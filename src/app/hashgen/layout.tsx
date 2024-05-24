@@ -10,11 +10,7 @@ interface Props {
 // the default tags our provider will pass this
 
 export default function HashLayout({ children }: Props) {
-  return (
-    <HashtagProvider defaultTags={testTags} title="Trending Top 100 Hashes">
-      {children}
-    </HashtagProvider>
-  );
+  return <HashtagProvider defaultTags={testTags}>{children}</HashtagProvider>;
 }
 
 // https://nextjs.org/docs/app/building-your-application/optimizing/metadata

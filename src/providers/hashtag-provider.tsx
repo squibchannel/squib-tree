@@ -3,12 +3,16 @@ import React, { ReactNode, createContext, useState } from "react";
 
 // You can modularize the interfaces and context
 
+interface UpdateTagsType {
+  newTags: string[];
+  newTitle: string;
+}
+
 // Create the typing (think of what we are returning and how it will get there)
 export interface hashtagContextType {
   currentTags: string[];
-  updateTags: (newTags: string[]) => void;
+  updateTags: ({ newTags, newTitle }: UpdateTagsType) => void;
   hashTitle: string;
-  updateTitle: (title: string) => void;
 }
 
 // Create the context and apply the typing
@@ -20,20 +24,16 @@ export const hashtagContext = createContext<hashtagContextType | undefined>(
 interface Props {
   children: ReactNode;
   defaultTags: string[];
-  title: string;
 }
 
 // The provider itself is the logic we are passing dow
-export const HashtagProvider = ({ children, defaultTags, title }: Props) => {
+export const HashtagProvider = ({ children, defaultTags }: Props) => {
   const [currentTags, setCurrentTags] = useState<string[]>(defaultTags);
-  const [hashTitle, setHashTitle] = useState<string>(title);
+  const [hashTitle, setHashTitle] = useState<string>("Trending Top 100 Hashes");
 
-  const updateTags = (newTags: string[]) => {
+  const updateTags = ({ newTags, newTitle }: UpdateTagsType) => {
     setCurrentTags(newTags);
-  };
-
-  const updateTitle = (title: string) => {
-    setHashTitle(title);
+    setHashTitle(newTitle);
   };
 
   // The end result of what's being passed down
@@ -41,7 +41,6 @@ export const HashtagProvider = ({ children, defaultTags, title }: Props) => {
     currentTags,
     updateTags,
     hashTitle,
-    updateTitle,
   };
 
   return (
