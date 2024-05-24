@@ -11,7 +11,9 @@ interface Props {
 export default function TagCard({ tag }: Props) {
   const handleClick = () => {
     navigator.clipboard.writeText(tag);
-    toast.success(`${tag} has been copied to your clipboard`);
+    toast.success(`${tag} has been copied to your clipboard`, {
+      position: "bottom-right",
+    });
   };
 
   return (

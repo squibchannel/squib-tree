@@ -1,30 +1,40 @@
 import NextAuth from "next-auth";
 import TwitchProvider from "next-auth/providers/twitch";
 import { SupabaseAdapter } from "@auth/supabase-adapter";
+import { env } from "./lib/env";
 // import jwt from "jsonwebtoken";
 
 // At some point I will need to handle jwt while authenticating
 
+const {
+  SUPABASE_URL,
+  SUPABASE_SERVICE_ROLE_KEY,
+  AUTH_TWITCH_ID,
+  AUTH_TWITCH_SECRET,
+  SUPABASE_JWT_SECRET,
+} = env;
+
 export const { handlers, signIn, signOut, auth } = NextAuth({
   providers: [
     TwitchProvider({
-      clientId: process.env.AUTH_TWITCH_ID,
-      clientSecret: process.env.AUTH_TWITCH_SECRET,
+      clientId: AUTH_TWITCH_ID,
+      clientSecret: AUTH_TWITCH_SECRET,
 
       authorization: {
         params: { scope: "openid user:read:email" },
       },
     }),
   ],
+
   adapter: SupabaseAdapter({
-    url: process.env.SUPABASE_URL!,
-    secret: process.env.SUPABASE_SERVICE_ROLE_KEY!,
+    url: SUPABASE_URL,
+    secret: SUPABASE_SERVICE_ROLE_KEY,
   }),
 
   // Handle whatever happens when said function is called, ie session or signIn
   callbacks: {
     async session({ session, user }) {
-      const signingSecret = process.env.SUPABASE_JWT_SECRET;
+      const signingSecret = SUPABASE_JWT_SECRET;
       if (signingSecret) {
         const payload = {
           aud: "authenticated",

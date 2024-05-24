@@ -3,9 +3,11 @@ Hashtag Generator
 #TODO: Main Goals:
 - Once a day grab top hashtags and display them
     - Check for a difference daily and don't call if x percentage
+    - grab all top and copy to cliboard 
 
 - Be able to enter keyword and display relevant hashtags
 - Enter an image and display tags
+-- be able to upload image (should we cache a few?)
 
 #TODO: Small Goals
 - Let others use their own api key for requests 
@@ -22,4 +24,4 @@ Hashtag Generator
 
 -- -- Need some sort of personal dashboard that allows you to configure tools
 -- -- Have a profile page that displays Twitch info
--- -- 
+

@@ -17,6 +17,7 @@
     "@radix-ui/react-slider": "^1.1.2",
     "@radix-ui/react-slot": "^1.0.2",
     "@supabase/supabase-js": "^2.43.4",
+    "axios": "^1.7.2",
     "class-variance-authority": "^0.7.0",
     "jsonwebtoken": "^9.0.2",
     "lucide-react": "^0.378.0",
@@ -27,7 +28,8 @@
     "react-dom": "^18",
     "react-social-icons": "^6.16.0",
     "sonner": "^1.4.41",
-    "tailwindcss-animate": "^1.0.7"
+    "tailwindcss-animate": "^1.0.7",
+    "zod": "^3.23.8"
   },
   "devDependencies": {
     "@types/jsonwebtoken": "^9.0.6",
