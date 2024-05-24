@@ -1,18 +1,12 @@
-import { keywordHashURL, hashKey } from "../const";
+import { env } from "@/lib/env";
 import axios from "axios";
 
-const HashGenAPI = axios.create({
+const hashtagAPI = axios.create({
   baseURL: "https://hashtag5.p.rapidapi.com/api/v2.1",
   headers: {
     "X-RapidAPI-Host": "hashtag5.p.rapidapi.com",
-    "X-RapidAPI-Key": hashKey,
+    "X-RapidAPI-Key": env.HASHGEN_KEY,
   },
 });
 
-HashGenAPI.interceptors.request.use((config) => {
-  return config;
-
-  // return Promise.reject("adsfjkhadskf");
-});
-
-export default HashGenAPI;
+export default hashtagAPI;

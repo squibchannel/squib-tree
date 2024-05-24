@@ -4,14 +4,14 @@ import React from "react";
 import { Button } from "./ui/button";
 import { toast } from "sonner";
 
-interface Props {
-  testTags: string[];
-}
+import useTags from "@/hooks/useTags";
 
-function CopyHashesButton({ testTags }: Props) {
+function CopyHashesButton() {
+  const { currentTags } = useTags();
+
   const handleHashClick = () => {
-    navigator.clipboard.writeText(testTags.join(", "));
-    toast.success(`All ${testTags.length} hashes copied to clipboard!`, {
+    navigator.clipboard.writeText(currentTags.join(", "));
+    toast.success(`All ${currentTags.length} hashes copied to clipboard!`, {
       position: "bottom-right",
     });
   };

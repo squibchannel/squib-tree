@@ -38,14 +38,6 @@ export const hashKey = process.env.HASHGEN_KEY!;
 // export const topHashURL = "https://hashtag5.p.rapidapi.com/api/v2.1/tag/top";
 export const keywordHashURL = "https://hashtag5.p.rapidapi.com/api/v2.1";
 
-export const hashOptions = {
-  method: "GET",
-  headers: {
-    "X-RapidAPI-Key": hashKey,
-    "X-RapidAPI-Host": "hashtag5.p.rapidapi.com",
-  },
-};
-
 export const testTags: string[] = [
   "love",
   "instagood",

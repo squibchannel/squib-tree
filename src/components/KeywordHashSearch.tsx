@@ -11,10 +11,12 @@ import {
 import { Input } from "./ui/input";
 import { Button } from "./ui/button";
 import { toast } from "sonner";
+import { hashGenSearch } from "@/actions/hashTagSearches";
+import useTags from "@/hooks/useTags";
 
-import { hashGenSearch } from "@/actions/blablablaapi";
 function KeywordHashSearch() {
   const [keyword, setKeyword] = useState("");
+  const { updateTags } = useTags();
 
   const handleInputChange = (e: ChangeEvent<HTMLInputElement>) => {
     setKeyword(e.target.value);
@@ -22,17 +24,17 @@ function KeywordHashSearch() {
 
   const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    console.log("Submitted keyword:", keyword);
 
     const res = await hashGenSearch(keyword);
 
-    if (!res) toast.error("we fucked up");
-    // debugger;
+    if (!res) {
+      toast.error("we fucked up");
+      return;
+    }
 
-    console.log(res);
+    updateTags(res.tags);
   };
 
-  // try this
   return (
     <Card className="max-w-[40%] ml-6 mt-12 flex flex-col">
       <CardHeader>

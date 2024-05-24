@@ -13,6 +13,7 @@ const envSchema = z.object({
   AUTH_TWITCH_SECRET: z.string(),
 
   // hashgen
+  HASHGEN_KEY: z.string(),
 });
 
 export const env = envSchema.parse(process.env);
