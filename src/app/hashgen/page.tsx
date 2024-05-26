@@ -4,12 +4,9 @@ import CopyHashesButton from "@/components/CopyHashesButton";
 import KeywordHashSearch from "@/components/KeywordHashSearch";
 import RenderMarquee from "@/components/RenderMarquee";
 import HashTitle from "@/components/HashTitle";
+import ImageHashSearch from "@/components/ImageHashSearch";
 
 export default async function HashGen() {
-  // const topHashes = await simpleFetch(topHashURL, hashOptions);
-
-  //TODO: ASSIGNMENT: Update the "daily top 100 hashes after a search"
-
   return (
     <div className="main flex justify-center flex-col ">
       <HashTitle />
@@ -17,7 +14,10 @@ export default async function HashGen() {
         <RenderMarquee />
       </div>
       <CopyHashesButton />
-      <KeywordHashSearch />
+      <div className="flex flex-row justify-center mt-4">
+        <KeywordHashSearch />
+        <ImageHashSearch />
+      </div>
     </div>
   );
 }

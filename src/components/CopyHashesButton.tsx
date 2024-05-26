@@ -3,7 +3,6 @@
 import React from "react";
 import { Button } from "./ui/button";
 import { toast } from "sonner";
-
 import useTags from "@/hooks/useTags";
 
 function CopyHashesButton() {
@@ -16,7 +15,7 @@ function CopyHashesButton() {
     });
   };
   return (
-    <Button onClick={handleHashClick} className="w-[15%] mt-3 mx-auto">
+    <Button onClick={handleHashClick} className="w-[15%] mt-8 mx-auto">
       Copy Hashes
     </Button>
   );

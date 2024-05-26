@@ -61,14 +61,14 @@ export function SquibNavMenu() {
           <NavigationMenuTrigger>socials</NavigationMenuTrigger>
           <NavigationMenuContent>
             <ul className="grid w-[400px] gap-3 p-4 md:w-[500px] md:grid-cols-2 lg:w-[600px] ">
-              {socials.map((component) => (
+              {socials.map((social) => (
                 <ListItem
-                  key={component.title}
-                  title={component.title}
-                  href={component.href}
+                  key={social.title}
+                  title={social.title}
+                  href={social.href}
                   target="_blank"
                 >
-                  {component.description}
+                  {social.description}
                 </ListItem>
               ))}
             </ul>

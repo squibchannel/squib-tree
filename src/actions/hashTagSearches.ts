@@ -20,6 +20,22 @@ export async function hashGenSearch(
     return;
   }
 }
+
+export async function hashImageSearch(
+  imageString: string
+): Promise<predictResponse | undefined> {
+  try {
+    const res = await hashtagAPI.post<predictResponse>("/tag/generate", {
+      image: imageString,
+    });
+
+    return res.data;
+  } catch (error) {
+    console.log(error);
+    return;
+  }
+}
+
 export async function getDailyTags(): Promise<predictResponse | undefined> {
   try {
     const res = await hashtagAPI.get<predictResponse>("/tag/trending");
