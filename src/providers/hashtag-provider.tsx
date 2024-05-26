@@ -6,13 +6,15 @@ import React, { ReactNode, createContext, useState } from "react";
 interface UpdateTagsType {
   newTags: string[];
   newTitle: string;
+  newImage?: string;
 }
 
 // Create the typing (think of what we are returning and how it will get there)
 export interface hashtagContextType {
   currentTags: string[];
-  updateTags: ({ newTags, newTitle }: UpdateTagsType) => void;
+  updateTags: ({ newTags, newTitle, newImage }: UpdateTagsType) => void;
   hashTitle: string;
+  image: string;
 }
 
 // Create the context and apply the typing
@@ -30,10 +32,15 @@ interface Props {
 export const HashtagProvider = ({ children, defaultTags }: Props) => {
   const [currentTags, setCurrentTags] = useState<string[]>(defaultTags);
   const [hashTitle, setHashTitle] = useState<string>("Trending Top 100 Hashes");
+  const [image, setImage] = useState<string>("");
 
-  const updateTags = ({ newTags, newTitle }: UpdateTagsType) => {
+  const updateTags = ({ newTags, newTitle, newImage }: UpdateTagsType) => {
     setCurrentTags(newTags);
     setHashTitle(newTitle);
+
+    if (newImage) {
+      setImage(newImage);
+    }
   };
 
   // The end result of what's being passed down
@@ -41,6 +48,7 @@ export const HashtagProvider = ({ children, defaultTags }: Props) => {
     currentTags,
     updateTags,
     hashTitle,
+    image,
   };
 
   return (

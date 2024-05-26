@@ -15,12 +15,18 @@ import { toast } from "sonner";
 import useTags from "@/hooks/useTags";
 
 function ImageHashSearch() {
-  const [image, setImage] = useState<string>("");
+  const [base64, setBase64] = useState<string>("");
+  const [imgFile, setImgFile] = useState<string>();
+
   const { updateTags } = useTags();
 
   const handleImageUpload = (e: ChangeEvent<HTMLInputElement>) => {
     const file = e.target.files && e.target.files[0];
+
     if (file) {
+      const imageUrl = URL.createObjectURL(file);
+      setImgFile(imageUrl);
+
       const reader = new FileReader();
       reader.onload = () => {
         let base64String = reader.result;
@@ -38,15 +44,14 @@ function ImageHashSearch() {
 
         const splittedString: string = base64String.split(",")[1];
 
-        // really simple
         try {
           base64Schema.parse(splittedString);
         } catch (error) {
-          setImage("");
+          setBase64("");
           toast.error("invalid base64 string", { position: "bottom-right" });
           return;
         }
-        setImage(splittedString);
+        setBase64(splittedString);
       };
       reader.readAsDataURL(file);
     }
@@ -55,7 +60,7 @@ function ImageHashSearch() {
   const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
 
-    const res = await hashImageSearch(image);
+    const res = await hashImageSearch(base64);
 
     if (!res) {
       toast.error("we fucked up");
@@ -65,6 +70,7 @@ function ImageHashSearch() {
     updateTags({
       newTags: res.tags,
       newTitle: `Top ${res.tags.length} Keywords Related to your image`,
+      newImage: imgFile,
     });
   };
 
@@ -85,7 +91,7 @@ function ImageHashSearch() {
                 onChange={handleImageUpload}
                 className="bg-orange-600"
               />
-              {image && <Button>Search</Button>}
+              {base64 && <Button>Search</Button>}
             </div>
           </div>
         </form>

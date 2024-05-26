@@ -10,9 +10,7 @@ export default async function HashGen() {
   return (
     <div className="main flex justify-center flex-col ">
       <HashTitle />
-      <div className="mx-auto relative flex h-96 flex-row items-center justify-center overflow-hidden rounded-lg border bg-background sm:px-20 md:shadow-xl max-w-[90%]">
-        <RenderMarquee />
-      </div>
+      <RenderMarquee />
       <CopyHashesButton />
       <div className="flex flex-row justify-center mt-4">
         <KeywordHashSearch />
