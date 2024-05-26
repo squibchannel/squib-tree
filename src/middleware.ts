@@ -1,4 +1,5 @@
-import { auth } from "@/auth";
+import authConfig from "./auth.config";
+import NextAuth from "next-auth";
 import {
   DEFAULT_LOGIN_REDIRECT,
   apiAuthPrefix,
@@ -22,12 +23,16 @@ import {
     database in edge environments, like in the middleware.
 */
 
-export default auth((req) => {
+const { auth: middleware } = NextAuth(authConfig);
+
+export default middleware((req) => {
   const { nextUrl } = req;
   const isLoggedIn = !!req.auth;
 
-  console.log("is logged in: ", isLoggedIn);
-  console.log("Route: ", req.nextUrl.pathname);
+  if (process.env.NODE_ENV === "development") {
+    console.log("isLoggedIn", isLoggedIn);
+    console.log("Route: ", nextUrl.pathname);
+  }
 
   const isApiAuthRoute = nextUrl.pathname.startsWith(apiAuthPrefix);
   const publicRoute = publicRoutes.includes(nextUrl.pathname);

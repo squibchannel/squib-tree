@@ -1,37 +1,19 @@
+import jwt from "jsonwebtoken";
 import NextAuth from "next-auth";
-import TwitchProvider from "next-auth/providers/twitch";
-import { SupabaseAdapter } from "@auth/supabase-adapter";
+import authConfig from "./auth.config";
 import { env } from "./lib/env";
-// import jwt from "jsonwebtoken";
 
-// At some point I will need to handle jwt while authenticating
+const { SUPABASE_JWT_SECRET } = env;
 
-const {
-  SUPABASE_URL,
-  SUPABASE_SERVICE_ROLE_KEY,
-  AUTH_TWITCH_ID,
-  AUTH_TWITCH_SECRET,
-  SUPABASE_JWT_SECRET,
-} = env;
+/*
+  Row Level Security Notes:
+  - Our session gets called and a token is assigned
+  - This token allows us to only see our own data
+*/
 
 export const { handlers, signIn, signOut, auth } = NextAuth({
-  providers: [
-    TwitchProvider({
-      clientId: AUTH_TWITCH_ID,
-      clientSecret: AUTH_TWITCH_SECRET,
-
-      authorization: {
-        params: { scope: "openid user:read:email" },
-      },
-    }),
-  ],
-
-  adapter: SupabaseAdapter({
-    url: SUPABASE_URL,
-    secret: SUPABASE_SERVICE_ROLE_KEY,
-  }),
-
-  // Handle whatever happens when said function is called, ie session or signIn
+  ...authConfig,
+  // debug: true,
   callbacks: {
     async session({ session, user }) {
       const signingSecret = SUPABASE_JWT_SECRET;
@@ -43,15 +25,9 @@ export const { handlers, signIn, signOut, auth } = NextAuth({
           email: user.email,
           role: "authenticated",
         };
-        // session.supabaseAccessToken = jwt.sign(payload, signingSecret);
+        session.supabaseAccessToken = jwt.sign(payload, signingSecret);
       }
       return session;
-    },
-  },
-
-  events: {
-    signIn: ({ user }) => {
-      console.log(user);
     },
   },
 });
