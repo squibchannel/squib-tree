@@ -1,5 +1,5 @@
 "use client";
-
+import { base64Schema } from "@/schema/base64";
 import React, { useState, ChangeEvent, FormEvent } from "react";
 import {
   Card,
@@ -37,6 +37,15 @@ function ImageHashSearch() {
         */
 
         const splittedString: string = base64String.split(",")[1];
+
+        // really simple
+        try {
+          base64Schema.parse(splittedString);
+        } catch (error) {
+          setImage("");
+          toast.error("invalid base64 string", { position: "bottom-right" });
+          return;
+        }
         setImage(splittedString);
       };
       reader.readAsDataURL(file);
