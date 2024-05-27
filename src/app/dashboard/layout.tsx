@@ -1,11 +1,11 @@
 import DashboardNav from "@/components/nav/DashboardNav";
-import React, { ReactNode } from "react";
+import React, { ReactNode, createContext } from "react";
 
 interface Props {
   children: ReactNode;
 }
 
-export default function DashboardLayout({ children }: Props) {
+export default async function DashboardLayout({ children }: Props) {
   return (
     <div>
       <DashboardNav />

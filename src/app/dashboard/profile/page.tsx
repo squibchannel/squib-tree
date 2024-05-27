@@ -1,15 +1,50 @@
 import React from "react";
-import { auth } from "@/auth";
-import { createClient } from "@/lib/supabase/serverSide";
+import {
+  fetchTwitchFollowers,
+  fetchTwitchSubs,
+} from "@/actions/twitchRequests";
+import {
+  Table,
+  TableBody,
+  TableCaption,
+  TableCell,
+  TableFooter,
+  TableHead,
+  TableHeader,
+  TableRow,
+} from "@/components/ui/table";
 
 async function ProfilePage() {
-  const session = await auth();
+  const data = await fetchTwitchFollowers();
+  if (!data) return <></>;
 
-  const supabase = createClient(session?.supabaseAccessToken as string);
-
-  const { data, error } = await supabase.from("users").select("name");
-
-  return <div>{JSON.stringify(data)}</div>;
+  return (
+    <Table>
+      <TableCaption>Follower</TableCaption>
+      <TableHeader>
+        <TableRow>
+          <TableHead className="w-[100px]">Username</TableHead>
+          <TableHead>Followed At</TableHead>
+        </TableRow>
+      </TableHeader>
+      <TableBody>
+        {data.data.map((follower, index: number) => (
+          <TableRow key={index}>
+            <TableCell className="font-medium">{follower.user_name}</TableCell>
+            <TableCell>
+              {new Date(follower.followed_at).toLocaleDateString()}
+            </TableCell>
+          </TableRow>
+        ))}
+      </TableBody>
+      <TableFooter>
+        <TableRow>
+          <TableCell colSpan={3}>Total</TableCell>
+          <TableCell className="text-right">{data.total}</TableCell>
+        </TableRow>
+      </TableFooter>
+    </Table>
+  );
 }
 
 export default ProfilePage;

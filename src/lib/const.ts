@@ -58,16 +58,10 @@ export const dashboardMenu: dashboardMenu[] = [
 export const TWITCH_SCOPES = [
   "openid",
   "user:read:email",
-  "channel:read:editors",
-  "channel:manage:redemptions",
+  "user:read:follows",
   "channel:read:subscriptions",
-  "channel:read:vips",
-  "moderation:read",
   "moderator:read:followers",
-  "user:read:chat",
-  "user:write:chat",
-  "user:bot",
-  "channel:bot",
+  "channel:read:charity",
 ];
 
 export const testTags: string[] = [
