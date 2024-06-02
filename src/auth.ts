@@ -2,7 +2,6 @@ import jwt from "jsonwebtoken";
 import NextAuth from "next-auth";
 import authConfig from "./auth.config";
 import { env } from "./lib/env";
-import { fetchTwitchFollowers } from "./actions/twitchRequests";
 
 const { SUPABASE_JWT_SECRET } = env;
 

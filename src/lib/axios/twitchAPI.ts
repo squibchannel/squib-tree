@@ -38,6 +38,7 @@ twitchAPI.interceptors.response.use(
   async function (error) {
     //originalRequest
     const originalRequest = error.config;
+    // console.log(error);
 
     //if the error status = 401 we update the token and retry
     if (error.response.status === 401 && !originalRequest._retry) {

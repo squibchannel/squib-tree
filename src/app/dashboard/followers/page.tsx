@@ -1,6 +1,6 @@
 import FollowersTable from "@/components/FollowersTable";
 
-async function FollowersPage() {
+function FollowersPage() {
   return <FollowersTable />;
 }
 

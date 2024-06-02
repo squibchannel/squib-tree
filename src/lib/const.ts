@@ -33,9 +33,6 @@ export const socials: { title: string; href: string; description: string }[] = [
   },
 ];
 
-export const hashKey = process.env.HASHGEN_KEY!;
-
-// export const topHashURL = "https://hashtag5.p.rapidapi.com/api/v2.1/tag/top";
 export const keywordHashURL = "https://hashtag5.p.rapidapi.com/api/v2.1";
 
 type dashboardMenu = {
@@ -53,6 +50,18 @@ export const dashboardMenu: dashboardMenu[] = [
     href: "/dashboard/subs",
   },
   {
+    name: "Mods",
+    href: "/dashboard/mods",
+  },
+  {
+    name: "Vips",
+    href: "/dashboard/vips",
+  },
+  {
+    name: "Editors",
+    href: "/dashboard/editors",
+  },
+  {
     name: "Settings",
     href: "/dashboard/settings",
   },
@@ -67,6 +76,11 @@ export const TWITCH_SCOPES = [
   "moderator:read:followers",
   "channel:read:charity",
   "user:write:chat",
+  "moderation:read",
+  "channel:manage:moderators",
+  "channel:read:vips",
+  "channel:manage:vips",
+  "channel:read:editors",
 ];
 
 export const testTags: string[] = [

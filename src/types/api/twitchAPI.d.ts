@@ -33,6 +33,45 @@ export type BroadcasterSubscription = {
   };
 };
 
+export interface GetModeratorsRequestParams {
+  broadcaster_id: string; // Required
+  user_id?: string | string[]; // Optional, can be a string or an array of strings
+  first?: string; // Optional
+  after?: string; // Optional
+}
+
+export interface Moderator {
+  user_id: string;
+  user_login: string;
+  user_name: string;
+}
+
+export interface GetModeratorsResponse {
+  data: Moderator[];
+  pagination: Pagination;
+}
+
+export interface VIP {
+  user_id: string;
+  user_name: string;
+  user_login: string;
+}
+
+export interface GetVIPsResponse {
+  data: VIP[];
+  pagination: Pagination;
+}
+
+export interface Editor {
+  user_id: string;
+  user_name: string;
+  created_at: string; // Date and time in RFC3339 format
+}
+
+export interface GetChannelEditorsResponse {
+  data: Editor[];
+}
+
 // Request Body Type
 export interface SendMessageRequest {
   broadcaster_id: string; // The ID of the broadcaster whose chat room the message will be sent to.

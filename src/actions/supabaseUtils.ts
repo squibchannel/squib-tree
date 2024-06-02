@@ -19,6 +19,6 @@ export async function supabaseAdminConnectUser(
     console.error(error);
     throw new Error("Access token or user ID is missing");
   }
-
+  // console.log("inside admin client request", data);
   return data;
 }
