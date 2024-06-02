@@ -1,8 +1,5 @@
 import React from "react";
-import {
-  fetchTwitchFollowers,
-  fetchTwitchSubs,
-} from "@/actions/twitchRequests";
+import { fetchTwitchFollowers } from "@/actions/twitchRequests";
 import {
   Table,
   TableBody,
@@ -14,13 +11,12 @@ import {
   TableRow,
 } from "@/components/ui/table";
 
-async function ProfilePage() {
-  const data = await fetchTwitchFollowers();
-  if (!data) return <></>;
+async function FollowersTable() {
+  const followers = await fetchTwitchFollowers();
+  if (!followers) return <></>;
 
   return (
-    <Table>
-      <TableCaption>Follower</TableCaption>
+    <Table className="w-full max-w-[90vw]">
       <TableHeader>
         <TableRow>
           <TableHead className="w-[100px]">Username</TableHead>
@@ -28,7 +24,7 @@ async function ProfilePage() {
         </TableRow>
       </TableHeader>
       <TableBody>
-        {data.data.map((follower, index: number) => (
+        {followers.data.map((follower, index: number) => (
           <TableRow key={index}>
             <TableCell className="font-medium">{follower.user_name}</TableCell>
             <TableCell>
@@ -40,11 +36,11 @@ async function ProfilePage() {
       <TableFooter>
         <TableRow>
           <TableCell colSpan={3}>Total</TableCell>
-          <TableCell className="text-right">{data.total}</TableCell>
+          <TableCell className="text-right">{followers.total}</TableCell>
         </TableRow>
       </TableFooter>
     </Table>
   );
 }
 
-export default ProfilePage;
+export default FollowersTable;

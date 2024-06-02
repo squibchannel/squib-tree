@@ -45,8 +45,12 @@ type dashboardMenu = {
 
 export const dashboardMenu: dashboardMenu[] = [
   {
-    name: "Profile",
-    href: "/dashboard/profile",
+    name: "Followers",
+    href: "/dashboard/followers",
+  },
+  {
+    name: "Subscribers",
+    href: "/dashboard/subs",
   },
   {
     name: "Settings",
@@ -62,6 +66,7 @@ export const TWITCH_SCOPES = [
   "channel:read:subscriptions",
   "moderator:read:followers",
   "channel:read:charity",
+  "user:write:chat",
 ];
 
 export const testTags: string[] = [
