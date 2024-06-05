@@ -1,13 +1,10 @@
 "use client";
 
 import { sendChatMessage } from "@/actions/twitchRequests";
-import React, { useEffect, useState, ChangeEvent } from "react";
-import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { useDebounce } from "@uidotdev/usehooks";
+import { ChangeEvent, useEffect, useState } from "react";
 import { toast } from "sonner";
-import { zodResolver } from "@hookform/resolvers/zod";
-import { useForm } from "react-hook-form";
 
 /*
     Page layouts default to server
@@ -18,7 +15,7 @@ import { useForm } from "react-hook-form";
     Our page layout can remain "SSR" (server side rendering)
 */
 
-function SendMessageForm() {
+function SendMessageFormDebouncer() {
   const [message, setMessage] = useState("");
   const debouncedMessage = useDebounce(message, 500);
 
@@ -55,4 +52,4 @@ function SendMessageForm() {
   );
 }
 
-export default SendMessageForm;
+export default SendMessageFormDebouncer;

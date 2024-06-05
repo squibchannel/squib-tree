@@ -93,3 +93,56 @@ export interface SendMessageResponse {
     drop_reason?: DropReason; // The reason the message was dropped, if any.
   }[];
 }
+
+export interface Chatter {
+  user_id: string;
+  user_login: string;
+  user_name: string;
+}
+
+export interface GetChattersResponse {
+  data: Chatter[];
+  pagination: Pagination;
+  total: number;
+}
+
+export interface Clip {
+  id: string;
+  url: string;
+  embed_url: string;
+  broadcaster_id: string;
+  broadcaster_name: string;
+  creator_id: string;
+  creator_name: string;
+  video_id: string;
+  game_id: string;
+  language: string;
+  title: string;
+  view_count: number;
+  created_at: string;
+  thumbnail_url: string;
+  duration: number;
+  vod_offset: number | null;
+  is_featured: boolean;
+}
+
+export interface GetClipsResponse {
+  data: Clip[];
+  pagination: Pagination;
+}
+
+export interface GetClipsQueryParameters {
+  broadcaster_id?: string;
+  game_id?: string;
+  id?: string | string[];
+  started_at?: string;
+  ended_at?: string;
+  first?: number;
+  before?: string;
+  after?: string;
+  is_featured?: boolean;
+}
+
+export interface Pagination {
+  cursor: string;
+}

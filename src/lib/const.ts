@@ -62,6 +62,14 @@ export const dashboardMenu: dashboardMenu[] = [
     href: "/dashboard/editors",
   },
   {
+    name: "Clips",
+    href: "/dashboard/clips",
+  },
+  {
+    name: "Chat",
+    href: "/dashboard/chat",
+  },
+  {
     name: "Settings",
     href: "/dashboard/settings",
   },

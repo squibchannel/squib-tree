@@ -4,6 +4,9 @@ import { twitchAPI } from "@/lib/axios/twitchAPI";
 import { auth } from "@/auth";
 import {
   BroadcasterSubscription,
+  GetChattersResponse,
+  GetClipsQueryParameters,
+  GetClipsResponse,
   GetModeratorsRequestParams,
   GetModeratorsResponse,
   SendMessageResponse,
@@ -162,5 +165,57 @@ export async function sendChatMessage(
   } catch (error) {
     console.log(error);
     throw new Error(`Failed to send chat message: ${error}`);
+  }
+}
+
+export async function getChatters(): Promise<GetChattersResponse> {
+  const session = await auth();
+  const supabaseAdmin = await supabaseAdminConnectUser(session);
+
+  if (!supabaseAdmin || !supabaseAdmin.providerAccountId) {
+    throw new Error("No providerAccountId found for the user");
+  }
+
+  const broadcaster_id = supabaseAdmin.providerAccountId;
+
+  try {
+    const res = await twitchAPI.get<GetChattersResponse>("/chat/chatters", {
+      params: {
+        broadcaster_id: broadcaster_id,
+        moderator_id: broadcaster_id,
+      },
+      user_id: session?.user.id,
+    });
+
+    return res.data;
+  } catch (error) {
+    console.log(error);
+    throw new Error(`Failed to get chatters: ${error}`);
+  }
+}
+
+export async function getClips(): Promise<GetClipsResponse> {
+  const session = await auth();
+  const supabaseAdmin = await supabaseAdminConnectUser(session);
+
+  if (!supabaseAdmin || !supabaseAdmin.providerAccountId) {
+    throw new Error("No providerAccountId found for the user");
+  }
+
+  const broadcaster_id = supabaseAdmin.providerAccountId;
+
+  try {
+    const res = await twitchAPI.get<GetClipsResponse>("/clips", {
+      params: {
+        broadcaster_id: broadcaster_id,
+        first: 5,
+      },
+      user_id: session?.user.id,
+    });
+
+    return res.data;
+  } catch (error) {
+    console.log(error);
+    throw new Error(`Failed to get chatters: ${error}`);
   }
 }

@@ -29,8 +29,9 @@ function SendMessageZodReactForm() {
   });
 
   const onSubmit = async (values: z.infer<typeof chatFormSchema>) => {
+    const { chatMsg } = values;
     try {
-      await sendChatMessage(values.chatMsg);
+      await sendChatMessage(chatMsg);
       toast.success("Message Successfully Sent");
       chatForm.reset();
     } catch (error) {
