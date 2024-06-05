@@ -81,6 +81,10 @@ export const TWITCH_SCOPES = [
   "channel:read:vips",
   "channel:manage:vips",
   "channel:read:editors",
+  "moderator:read:chatters",
+  "user:write:chat",
+  "user:bot",
+  "channel:bot",
 ];
 
 export const testTags: string[] = [

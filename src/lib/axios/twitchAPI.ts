@@ -47,6 +47,11 @@ twitchAPI.interceptors.response.use(
       //get the channel from the request
       const user_id = error.response?.config.user_id;
 
+      if (!user_id) {
+        console.log("can not find the user ID to refresh the token");
+        return Promise.reject("can not find the user ID refresh the token");
+      }
+
       const { data, error: DBerror } = await supabaseAdmin
         .from("accounts")
         .select("refresh_token")

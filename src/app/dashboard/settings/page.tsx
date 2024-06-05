@@ -1,7 +1,8 @@
-import React from "react";
+"use server";
+
+import SendMessageZodReactForm from "@/components/SendMessageZodReactForm";
 
 function SettingsPage() {
-  return <div>Settings Page</div>;
+  return <SendMessageZodReactForm />;
 }
-
 export default SettingsPage;
