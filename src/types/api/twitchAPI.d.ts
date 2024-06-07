@@ -128,7 +128,7 @@ export interface Clip {
 
 export interface GetClipsResponse {
   data: Clip[];
-  pagination: Pagination;
+  pagination?: Pagination;
 }
 
 export interface GetClipsQueryParameters {
@@ -144,5 +144,5 @@ export interface GetClipsQueryParameters {
 }
 
 export interface Pagination {
-  cursor: string;
+  cursor: string | null;
 }

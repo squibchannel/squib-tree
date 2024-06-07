@@ -14,7 +14,7 @@ interface ClipCardProps {
   viewCount: number;
   embedUrl: string;
   clipCreator: string;
-  key: string;
+  clipId: string;
 }
 
 function ClipCard({
@@ -22,10 +22,10 @@ function ClipCard({
   viewCount,
   embedUrl,
   clipCreator,
-  key,
+  clipId,
 }: ClipCardProps) {
   return (
-    <Card>
+    <Card className="min-w-fit">
       <CardHeader>
         <CardTitle>{clipTitle}</CardTitle>
         <CardDescription>{`View Count: ${viewCount}`}</CardDescription>
@@ -37,6 +37,7 @@ function ClipCard({
           embed_url={embedUrl}
           autoplay={false}
           muted={true}
+          key={clipId + `-${clipTitle}`}
         />
       </CardContent>
       <CardFooter>

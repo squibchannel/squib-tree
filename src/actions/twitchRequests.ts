@@ -13,6 +13,7 @@ import {
   TwitchFollowedChannelsResponse,
 } from "@/types/api/twitchAPI";
 import { supabaseAdminConnectUser } from "./supabaseUtils";
+import { Pagination } from "@/types/api/twitchAPI";
 
 export async function fetchTwitchFollowers() {
   const session = await auth();
@@ -194,7 +195,13 @@ export async function getChatters(): Promise<GetChattersResponse> {
   }
 }
 
-export async function getClips(): Promise<GetClipsResponse> {
+export async function getClips({
+  after,
+  before,
+}: {
+  after?: string | null;
+  before?: string | null;
+} = {}): Promise<GetClipsResponse> {
   const session = await auth();
   const supabaseAdmin = await supabaseAdminConnectUser(session);
 
@@ -205,17 +212,29 @@ export async function getClips(): Promise<GetClipsResponse> {
   const broadcaster_id = supabaseAdmin.providerAccountId;
 
   try {
+    const params: GetClipsQueryParameters = {
+      broadcaster_id: broadcaster_id,
+      first: 9,
+    };
+
+    if (after) {
+      console.log("after exists ", after);
+      params.after = after;
+    }
+
+    if (before) {
+      console.log("before exists ", before);
+      params.before = before;
+    }
+    console.log(after, before);
+
     const res = await twitchAPI.get<GetClipsResponse>("/clips", {
-      params: {
-        broadcaster_id: broadcaster_id,
-        first: 5,
-      },
+      params: params,
       user_id: session?.user.id,
     });
 
     return res.data;
   } catch (error) {
-    console.log(error);
-    throw new Error(`Failed to get chatters: ${error}`);
+    throw new Error(`Failed to get clips: ${error}`);
   }
 }
