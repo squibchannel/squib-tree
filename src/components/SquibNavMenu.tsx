@@ -93,7 +93,13 @@ export function SquibNavMenu() {
           <NavigationMenuContent>
             <ul className="grid w-[400px] gap-3 p-4 md:w-[500px] md:grid-cols-2 lg:w-[600px] ">
               {dashboardMenu.map((item) => {
-                return <ListItem title={item.name} href={item.href} />;
+                return (
+                  <ListItem
+                    key={item.name + "-listitem"}
+                    title={item.name}
+                    href={item.href}
+                  />
+                );
               })}
             </ul>
           </NavigationMenuContent>

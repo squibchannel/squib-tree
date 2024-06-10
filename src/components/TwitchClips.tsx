@@ -11,7 +11,6 @@ function TwitchClips() {
   const [clips, setClips] = useState<Clip[]>([]);
   const [cursor, setCursor] = useState<string | null>(null);
   const [prevCursorStack, setPrevCursorStack] = useState<string[]>([]);
-  const [currentCursor, setCurrentCursor] = useState<string | null>(null);
   const [isInitRender, setIsInitRender] = useState<boolean>(true);
   async function fetchClips(
     after: string | null = null,
@@ -32,33 +31,25 @@ function TwitchClips() {
 
       if (!res.pagination) {
         toast.error("No pagination cursor provided");
-      } else {
-        setCursor(res.pagination?.cursor!);
-        setPrevCursorStack([...prevCursorStack, res.pagination?.cursor!]);
-        console.log("SETTING CURSOR STATE ", cursor);
-      }
+      } else if (res.pagination.cursor) {
+        if (
+          !prevCursorStack.includes(res.pagination.cursor) &&
+          cursor !== res.pagination.cursor
+        ) {
+          setCursor(res.pagination.cursor);
+          //FIXME: WHY DA FREAK ARE WE ADDING THE INTITAL CURSOR
+          //       TO THE STACK TWICE AND THEN FOLLOWING EXPECTEDLY
 
-      // if (res.pagination) {
-      //   if (after) {
-      //     if (currentCursor && after !== currentCursor) {
-      //       setPrevCursorStack((prev) => [...prev, currentCursor]);
-      //     }
-      //     setNextCursor(res.pagination.cursor);
-      //     setCurrentCursor(after);
-      //   } else if (before) {
-      //     const updatedPrevStack = prevCursorStack.slice(0, -1);
-      //     const previousCursor =
-      //       updatedPrevStack[updatedPrevStack.length - 1] || null;
-      //     setPrevCursorStack(updatedPrevStack);
-      //     setNextCursor(currentCursor);
-      //     setCurrentCursor(previousCursor);
-      //   } else {
-      //     setNextCursor(res.pagination.cursor);
-      //     setCurrentCursor(null);
-      //   }
-      // } else {
-      //   setNextCursor(null);
-      // }
+          //TODO: IMPLEMENT https://tanstack.com/query/latest/docs/framework/react/quick-start
+          setPrevCursorStack((prevStack) => {
+            if (res.pagination && cursor !== null) {
+              return [...prevStack, cursor];
+            }
+
+            return prevStack;
+          });
+        }
+      }
     } catch (error) {
       console.error("Failed to fetch clips:", error);
       toast.error("Failed to fetch clips");
@@ -67,15 +58,20 @@ function TwitchClips() {
 
   const handleNextPage = () => {
     if (cursor) {
-      setPrevCursorStack([...prevCursorStack, cursor]);
-      console.log(prevCursorStack);
+      // setPrevCursorStack([...prevCursorStack, cursor]);
+      // console.log(prevCursorStack);
+      console.log("Handle Prev Page Turn: ", [
+        `Cursor: ${cursor}`,
+        prevCursorStack,
+      ]);
       fetchClips(cursor, null); // Fetch next page using the next cursor
     }
   };
 
   const handlePrevPage = () => {
     if (cursor) {
-      fetchClips(null, prevCursorStack[-1]); // Fetch previous page using the previous cursor
+      const backCursor = prevCursorStack.findIndex((cur) => cur === cursor);
+      fetchClips(null, prevCursorStack[backCursor]);
     }
   };
 

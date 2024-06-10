@@ -228,6 +228,7 @@ export async function getClips({
     console.log("Request Params:", params);
 
     // ==========
+
     // twitchAPI.interceptors.request.use(
     //   (config) => {
     //     console.log("Request:", config);
