@@ -1,6 +1,5 @@
 "use client";
 
-import { cn } from "@/lib/utils";
 import {
   NavigationMenu,
   NavigationMenuContent,
@@ -8,13 +7,14 @@ import {
   NavigationMenuLink,
   NavigationMenuList,
   NavigationMenuTrigger,
-  navigationMenuTriggerStyle,
 } from "@/components/ui/navigation-menu";
-import { ModeToggle } from "./ModeToggle";
 import { socials } from "@/lib/const";
+import { cn } from "@/lib/utils";
 import { ComponentPropsWithoutRef, ElementRef, forwardRef } from "react";
-import { Button } from "./ui/button";
 import AuthButton from "./AuthButton";
+import { ModeToggle } from "./ModeToggle";
+import { dashboardMenu } from "@/lib/const";
+import Link from "next/link";
 
 export function SquibNavMenu() {
   return (
@@ -74,7 +74,7 @@ export function SquibNavMenu() {
             </ul>
           </NavigationMenuContent>
         </NavigationMenuItem>
-        <NavigationMenuItem className="flex-auto">
+        <NavigationMenuItem>
           <NavigationMenuTrigger>Tools</NavigationMenuTrigger>
           <NavigationMenuContent>
             <ul className="grid w-[400px] gap-3 p-4 md:w-[500px] md:grid-cols-2 lg:w-[600px] ">
@@ -83,6 +83,18 @@ export function SquibNavMenu() {
                 title="Hash Generator"
                 href="/hashgen"
               ></ListItem>
+            </ul>
+          </NavigationMenuContent>
+        </NavigationMenuItem>
+        <NavigationMenuItem className="flex-auto">
+          <NavigationMenuTrigger>
+            <Link href="/dashboard">Dashboard</Link>
+          </NavigationMenuTrigger>
+          <NavigationMenuContent>
+            <ul className="grid w-[400px] gap-3 p-4 md:w-[500px] md:grid-cols-2 lg:w-[600px] ">
+              {dashboardMenu.map((item) => {
+                return <ListItem title={item.name} href={item.href} />;
+              })}
             </ul>
           </NavigationMenuContent>
         </NavigationMenuItem>

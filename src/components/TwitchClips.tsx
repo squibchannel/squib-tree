@@ -1,23 +1,25 @@
 "use client";
 
+import { useEffect, useState } from "react";
 import { getClips } from "@/actions/twitchRequests";
 import { toast } from "sonner";
 import ClipGrid from "./ClipGrid";
 import PaginationNav from "./nav/PaginationNav";
-import { useEffect, useState } from "react";
 import { Clip, GetClipsResponse } from "@/types/api/twitchAPI";
 
 function TwitchClips() {
   const [clips, setClips] = useState<Clip[]>([]);
-  const [nextCursor, setNextCursor] = useState<string | null>(null);
-  const [prevCursor, setPrevCursor] = useState<string | null>(null);
+  const [cursor, setCursor] = useState<string | null>(null);
+  const [prevCursorStack, setPrevCursorStack] = useState<string[]>([]);
   const [currentCursor, setCurrentCursor] = useState<string | null>(null);
-
+  const [isInitRender, setIsInitRender] = useState<boolean>(true);
   async function fetchClips(
     after: string | null = null,
-    before: string | null = null
+    before: string | null = null,
+    cursor: string | null = null
   ) {
     try {
+      console.log("Fetching Clips - After:", after, "Before:", before);
       const res: GetClipsResponse = await getClips({ after, before });
 
       if (!res) {
@@ -28,23 +30,35 @@ function TwitchClips() {
       const newClips = res.data;
       setClips(newClips);
 
-      if (res.pagination) {
-        setNextCursor(res.pagination.cursor); // Set next cursor directly from the response
-
-        // Update prevCursor based on the currentCursor when navigating backward
-        if (after) {
-          // If after is provided, set the previous cursor to the current after cursor
-          setPrevCursor(currentCursor);
-        } else if (before) {
-          // If before is provided, set the previous cursor to the cursor of the last item in the previous page
-          const lastItemIndex = newClips.length - 1;
-          const prevPageCursor = newClips[lastItemIndex].id;
-          setPrevCursor(prevPageCursor);
-        }
-
-        // Update currentCursor with the current after cursor
-        setCurrentCursor(after);
+      if (!res.pagination) {
+        toast.error("No pagination cursor provided");
+      } else {
+        setCursor(res.pagination?.cursor!);
+        setPrevCursorStack([...prevCursorStack, res.pagination?.cursor!]);
+        console.log("SETTING CURSOR STATE ", cursor);
       }
+
+      // if (res.pagination) {
+      //   if (after) {
+      //     if (currentCursor && after !== currentCursor) {
+      //       setPrevCursorStack((prev) => [...prev, currentCursor]);
+      //     }
+      //     setNextCursor(res.pagination.cursor);
+      //     setCurrentCursor(after);
+      //   } else if (before) {
+      //     const updatedPrevStack = prevCursorStack.slice(0, -1);
+      //     const previousCursor =
+      //       updatedPrevStack[updatedPrevStack.length - 1] || null;
+      //     setPrevCursorStack(updatedPrevStack);
+      //     setNextCursor(currentCursor);
+      //     setCurrentCursor(previousCursor);
+      //   } else {
+      //     setNextCursor(res.pagination.cursor);
+      //     setCurrentCursor(null);
+      //   }
+      // } else {
+      //   setNextCursor(null);
+      // }
     } catch (error) {
       console.error("Failed to fetch clips:", error);
       toast.error("Failed to fetch clips");
@@ -52,16 +66,25 @@ function TwitchClips() {
   }
 
   const handleNextPage = () => {
-    fetchClips(nextCursor, null); // Fetch next page using next cursor
+    if (cursor) {
+      setPrevCursorStack([...prevCursorStack, cursor]);
+      console.log(prevCursorStack);
+      fetchClips(cursor, null); // Fetch next page using the next cursor
+    }
   };
 
   const handlePrevPage = () => {
-    fetchClips(null, prevCursor); // Fetch previous page using previous cursor
+    if (cursor) {
+      fetchClips(null, prevCursorStack[-1]); // Fetch previous page using the previous cursor
+    }
   };
 
   useEffect(() => {
-    fetchClips(); // Fetch initial clips when component mounts
-  }, []);
+    if (isInitRender) {
+      fetchClips(); // Fetch initial clips when the component mounts
+      setIsInitRender(false);
+    }
+  }, [isInitRender]);
 
   return (
     <div>

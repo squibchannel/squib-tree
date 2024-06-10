@@ -218,15 +218,40 @@ export async function getClips({
     };
 
     if (after) {
-      console.log("after exists ", after);
       params.after = after;
+      console.log("Using After Cursor", [params.after, params.before]);
+    } else if (before) {
+      params.before = before;
+      console.log("Using Before Cursor", [params.after, params.before]);
     }
 
-    if (before) {
-      console.log("before exists ", before);
-      params.before = before;
-    }
-    console.log(after, before);
+    console.log("Request Params:", params);
+
+    // ==========
+    // twitchAPI.interceptors.request.use(
+    //   (config) => {
+    //     console.log("Request:", config);
+    //     return config;
+    //   },
+    //   (error) => {
+    //     console.error("Request error:", error);
+    //     return Promise.reject(error);
+    //   }
+    // );
+
+    // =================
+
+    // twitchAPI.interceptors.response.use(
+    //   (response) => {
+    //     console.log("Response:", response);
+    //     return response;
+    //   },
+    //   (error) => {
+    //     console.error("Response error:", error);
+    //     return Promise.reject(error);
+    //   }
+    // );
+    // ================
 
     const res = await twitchAPI.get<GetClipsResponse>("/clips", {
       params: params,

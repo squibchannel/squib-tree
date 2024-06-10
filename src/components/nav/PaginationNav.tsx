@@ -22,12 +22,6 @@ function PaginationNav({ onNextPage, onPrevPage }: PaginationNavProps) {
         <PaginationItem>
           <PaginationPrevious href="#" onClick={onPrevPage} />
         </PaginationItem>
-        {/* <PaginationItem>
-          <PaginationLink href="#">1</PaginationLink>
-        </PaginationItem> */}
-        {/* <PaginationItem>
-          <PaginationEllipsis />
-        </PaginationItem> */}
         <PaginationItem>
           <PaginationNext href="#" onClick={onNextPage} />
         </PaginationItem>
