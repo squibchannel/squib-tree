@@ -71,7 +71,7 @@ export const dashboardMenu: dashboardMenu[] = [
   },
   {
     name: "Settings",
-    href: "/dashboard/settings",
+    href: "/dashboard/settings/general",
   },
 ];
 

@@ -20,7 +20,9 @@ function PaginationNav({ onNextPage, onPrevPage }: PaginationNavProps) {
     <Pagination className="mt-4">
       <PaginationContent>
         <PaginationItem>
-          <PaginationPrevious href="#" onClick={onPrevPage} />
+          <PaginationLink href="#" onClick={onPrevPage}>
+            Home
+          </PaginationLink>
         </PaginationItem>
         <PaginationItem>
           <PaginationNext href="#" onClick={onNextPage} />

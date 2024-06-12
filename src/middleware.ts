@@ -1,5 +1,7 @@
 import authConfig from "./auth.config";
 import NextAuth from "next-auth";
+import { NextResponse } from "next/server";
+import type { NextRequest } from "next/server";
 import {
   DEFAULT_LOGIN_REDIRECT,
   apiAuthPrefix,
@@ -7,37 +9,34 @@ import {
   publicRoutes,
 } from "@/lib/routes";
 
-/*
-    The middleware runs on every request, ie in our case always checking for isLoggedIn
-    We are declaring different route types via routes.ts, ie public, auth
-
-    You can only have ONE middlware.ts, but you can still modularize
-
-    https://authjs.dev/getting-started/migrating-to-v5 
-
-    Edge compatibility - 
-    So for example, if you are using an adapter that relies on an 
-    ORM/library that is not yet compatible with Edge runtime(s) below 
-    is an example where we force the jwt strategy and split up the 
-    configuration so the library doesn’t attempt to access the 
-    database in edge environments, like in the middleware.
-*/
-
 const { auth: middleware } = NextAuth(authConfig);
 
+// Middleware function to set x-current-path header
+const setCurrentPathHeader = (req: NextRequest) => {
+  const headers = new Headers(req.headers);
+  headers.set("x-current-path", req.nextUrl.pathname);
+  return NextResponse.next({ headers });
+};
+
+// Combine existing middleware with new middleware
 export default middleware((req) => {
   const { nextUrl } = req;
   const isLoggedIn = !!req.auth;
 
+  // Log information in development mode
   if (process.env.NODE_ENV === "development") {
     console.log("isLoggedIn", isLoggedIn);
     console.log("Route: ", nextUrl.pathname);
   }
 
+  // Check if the route is an API auth route
   const isApiAuthRoute = nextUrl.pathname.startsWith(apiAuthPrefix);
+
+  // Check if the route is a public route or an authenticated route
   const publicRoute = publicRoutes.includes(nextUrl.pathname);
   const authRoute = authRoutes.includes(nextUrl.pathname);
 
+  // Redirect users based on authentication status and route type
   if (isApiAuthRoute) {
     return;
   }
@@ -53,7 +52,7 @@ export default middleware((req) => {
     return Response.redirect(new URL("/login", nextUrl));
   }
 
-  return;
+  return setCurrentPathHeader(req); // Set x-current-path header
 });
 
 // Optionally, don't invoke Middleware on some paths
