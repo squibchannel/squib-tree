@@ -225,7 +225,7 @@ export async function getClips({
       console.log("Using Before Cursor", [params.after, params.before]);
     }
 
-    console.log("Request Params:", params);
+    // console.log("Request Params:", params);
 
     // ==========
 
@@ -258,7 +258,7 @@ export async function getClips({
       params: params,
       user_id: session?.user.id,
     });
-
+    console.log(res.data);
     return res.data;
   } catch (error) {
     throw new Error(`Failed to get clips: ${error}`);

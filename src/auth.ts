@@ -15,11 +15,6 @@ export const { handlers, signIn, signOut, auth } = NextAuth({
   ...authConfig,
   // debug: true,
   callbacks: {
-    // async jwt({ token }) {
-    //   console.log("jwt callback starting..");
-    //   return token;
-    // },
-
     async session({ session, user }) {
       const signingSecret = SUPABASE_JWT_SECRET;
       if (signingSecret) {

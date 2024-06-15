@@ -1,6 +1,7 @@
 import SquibTitleCard from "@/components/SquibTitleCard";
 import SocialCard from "@/components/SocialCard";
 import { socials } from "@/lib/const";
+// import { useDashboard } from "@/hooks/useDashboard";
 
 export default function Home() {
   return (

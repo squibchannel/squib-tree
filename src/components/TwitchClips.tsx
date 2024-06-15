@@ -21,6 +21,7 @@ function TwitchClips() {
     try {
       console.log("Fetching Clips - After:", after, "Before:", before);
       const res: GetClipsResponse = await getClips({ after, before });
+      console.log(res);
 
       if (!res) {
         toast.error("Response failed");
@@ -34,10 +35,11 @@ function TwitchClips() {
         toast.error("No pagination cursor provided");
       } else if (res.pagination.cursor) {
         setCursor(res.pagination.cursor);
-        if (after && !prevCursorStack.includes(after)) {
+        if (!prevCursorStack.includes(res.pagination.cursor)) {
           setPrevCursorStack((prevStack) => {
-            [...prevStack, after];
-
+            if (cursor !== null) {
+              return [...prevStack, cursor];
+            }
             // console.log("PrevStack", prevStack, "Cursor", cursor);
             return prevStack;
           });

@@ -1,5 +1,5 @@
 import { env } from "@/lib/env";
-import axios from "axios";
+import axios, { AxiosRequestConfig } from "axios";
 import { supabaseAdmin } from "../supabase/adminClient";
 
 export const twitchAPI = axios.create({
@@ -30,6 +30,7 @@ twitchAPI.interceptors.request.use(async (config) => {
 });
 
 // after the req
+
 twitchAPI.interceptors.response.use(
   (response) => {
     return response;
@@ -82,7 +83,7 @@ twitchAPI.interceptors.response.use(
   }
 );
 
-async function RefreshToken(
+export async function RefreshToken(
   refreshToken: string,
   user_id: string
 ): Promise<string | null> {

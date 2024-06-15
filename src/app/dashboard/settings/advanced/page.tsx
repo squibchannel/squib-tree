@@ -1,7 +1,8 @@
+import TwitchBotConfig from "@/components/TwitchBotConfig";
 import React from "react";
 
 function AdvancedSettings() {
-  return <div>Advanced Settings</div>;
+  return <TwitchBotConfig />;
 }
 
 export default AdvancedSettings;

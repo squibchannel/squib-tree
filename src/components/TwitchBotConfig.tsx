@@ -3,17 +3,18 @@
 import React, { useEffect, useState } from "react";
 import axios from "axios";
 import { useSession } from "next-auth/react";
+import botAPI from "@/lib/axios/botAPI";
 
-export default function TwitchBot() {
+export default function TwitchBotConfig() {
   const [data, setData] = useState(null);
   const [error, setError] = useState<string | null>(null);
-  let session = useSession();
+  const session = useSession();
 
   useEffect(() => {
     const fetchData = async () => {
       try {
         if (session.status === "authenticated") {
-          const response = await axios.post("/api/bot", { session });
+          const response = await botAPI.post("/api/bot", { session });
           setData(response.data);
         }
       } catch (error: any) {

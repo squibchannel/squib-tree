@@ -1,6 +1,6 @@
 import DashboardNav from "@/components/nav/DashboardNav";
-
-import React, { ReactNode } from "react";
+import DashboardProvider from "@/providers/DashboardProvider";
+import { ReactNode } from "react";
 
 interface Props {
   children: ReactNode;
@@ -8,10 +8,12 @@ interface Props {
 
 const DashboardLayout = ({ children }: Props) => {
   return (
-    <div>
-      <DashboardNav />
-      {children}
-    </div>
+    <DashboardProvider>
+      <div>
+        <DashboardNav />
+        {children}
+      </div>
+    </DashboardProvider>
   );
 };
 

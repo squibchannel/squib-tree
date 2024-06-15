@@ -1,5 +1,4 @@
 import React, { ReactNode } from "react";
-
 import SettingsLinks from "@/components/SettingsLinks";
 
 interface Props {
