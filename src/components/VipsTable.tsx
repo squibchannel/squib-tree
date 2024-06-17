@@ -1,4 +1,6 @@
-import React from "react";
+"use client";
+
+import React, { useContext } from "react";
 import { fetchTwitchVips } from "@/actions/twitchRequests";
 import { VIP } from "@/types/api/twitchAPI";
 import {
@@ -10,12 +12,18 @@ import {
   TableHeader,
   TableRow,
 } from "@/components/ui/table";
+import { DashboardContext } from "@/providers/DashboardProvider";
 
-async function VipsTable() {
-  const res = await fetchTwitchVips();
-  if (!res) <></>;
+function VipsTable() {
+  const { vips } = useContext(DashboardContext);
 
-  const vips = res?.data.data;
+  if (!vips) {
+    return <div>Loading...</div>;
+  }
+
+  if (vips.error) {
+    return <div>Error: {vips.error.message}</div>;
+  }
 
   return (
     <Table className="w-full max-w-[90vw]">
@@ -25,7 +33,7 @@ async function VipsTable() {
         </TableRow>
       </TableHeader>
       <TableBody>
-        {vips.map((vip: VIP, index: number) => (
+        {vips.response.data.map((vip: VIP, index: number) => (
           <TableRow key={index}>
             <TableCell className="font-medium">{vip.user_name}</TableCell>
           </TableRow>
@@ -34,7 +42,9 @@ async function VipsTable() {
       <TableFooter>
         <TableRow>
           <TableCell colSpan={4}>Total</TableCell>
-          <TableCell className="text-right">{vips.length}</TableCell>
+          <TableCell className="text-right">
+            {vips.response.data.length}
+          </TableCell>
         </TableRow>
       </TableFooter>
     </Table>

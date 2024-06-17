@@ -31,7 +31,7 @@ export async function fetchTwitchFollowers() {
         user_id: session?.user.id,
       }
     );
-    return res.data;
+    return res;
   } catch (error) {
     console.log("Failed to fetch followers:", error);
     // throw error;
@@ -47,7 +47,6 @@ export async function fetchTwitchSubs() {
     const res = await twitchAPI.get<BroadcasterSubscription>(`/subscriptions`, {
       params: {
         broadcaster_id: supabaseAdmin.providerAccountId,
-        first: 100,
       },
       user_id: session?.user.id,
     });

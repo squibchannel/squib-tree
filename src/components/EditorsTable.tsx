@@ -1,4 +1,6 @@
-import React from "react";
+"use client";
+
+import React, { useContext } from "react";
 import { fetchTwitchEditors } from "@/actions/twitchRequests";
 import {
   Table,
@@ -10,13 +12,18 @@ import {
   TableRow,
 } from "@/components/ui/table";
 import { Editor } from "@/types/api/twitchAPI";
+import { DashboardContext } from "@/providers/DashboardProvider";
 
-async function EditorsTable() {
-  const res = await fetchTwitchEditors();
-  if (!res) {
-    console.log("mod data not found");
+function EditorsTable() {
+  const { editors } = useContext(DashboardContext);
+
+  if (!editors) {
+    return <div>Loading...</div>;
   }
-  const editors = res?.data.data;
+
+  if (editors.error) {
+    return <div>Error: {editors.error.message}</div>;
+  }
 
   return (
     <Table className="w-full max-w-[90vw]">
@@ -27,7 +34,7 @@ async function EditorsTable() {
         </TableRow>
       </TableHeader>
       <TableBody>
-        {editors.map((editor: Editor, index: number) => (
+        {editors.response.data.map((editor: Editor, index: number) => (
           <TableRow key={index}>
             <TableCell className="font-medium">{editor.user_name}</TableCell>
             <TableCell className="font-medium">
@@ -39,7 +46,9 @@ async function EditorsTable() {
       <TableFooter>
         <TableRow>
           <TableCell colSpan={4}>Total</TableCell>
-          <TableCell className="text-right">{editors.length}</TableCell>
+          <TableCell className="text-right">
+            {editors.response.data.length}
+          </TableCell>
         </TableRow>
       </TableFooter>
     </Table>

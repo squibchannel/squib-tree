@@ -1,4 +1,6 @@
-import React from "react";
+"use client";
+
+import React, { useContext } from "react";
 import { fetchTwitchMods } from "@/actions/twitchRequests";
 import {
   Table,
@@ -10,13 +12,18 @@ import {
   TableRow,
 } from "@/components/ui/table";
 import { Moderator } from "@/types/api/twitchAPI";
+import { DashboardContext } from "@/providers/DashboardProvider";
 
-async function ModsTable() {
-  const res = await fetchTwitchMods();
-  if (!res) {
-    console.log("mod data not found");
+function ModsTable() {
+  const { mods } = useContext(DashboardContext);
+
+  if (!mods) {
+    return <div>Loading...</div>;
   }
-  const mods = res?.data.data;
+
+  if (mods.error) {
+    return <div>Error: {mods.error.message}</div>;
+  }
 
   return (
     <Table className="w-full max-w-[90vw]">
@@ -26,7 +33,7 @@ async function ModsTable() {
         </TableRow>
       </TableHeader>
       <TableBody>
-        {mods.map((mod: Moderator, index: number) => (
+        {mods.response.data.map((mod: Moderator, index: number) => (
           <TableRow key={index}>
             <TableCell className="font-medium">{mod.user_name}</TableCell>
           </TableRow>
@@ -35,7 +42,9 @@ async function ModsTable() {
       <TableFooter>
         <TableRow>
           <TableCell colSpan={4}>Total</TableCell>
-          <TableCell className="text-right">{mods.length}</TableCell>
+          <TableCell className="text-right">
+            {mods.response.data.length}
+          </TableCell>
         </TableRow>
       </TableFooter>
     </Table>

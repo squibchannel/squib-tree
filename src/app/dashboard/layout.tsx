@@ -9,7 +9,7 @@ interface Props {
 const DashboardLayout = ({ children }: Props) => {
   return (
     <DashboardProvider>
-      <div>
+      <div className="flex flex-col">
         <DashboardNav />
         {children}
       </div>

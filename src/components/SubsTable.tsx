@@ -1,4 +1,6 @@
-import React from "react";
+"use client";
+
+import React, { useContext } from "react";
 import { fetchTwitchSubs } from "@/actions/twitchRequests";
 import {
   Table,
@@ -9,12 +11,18 @@ import {
   TableHeader,
   TableRow,
 } from "@/components/ui/table";
+import { DashboardContext } from "@/providers/DashboardProvider";
 
-async function SubsTable() {
-  const res = await fetchTwitchSubs();
-  if (!res) return <></>;
+function SubsTable() {
+  const { subs } = useContext(DashboardContext);
 
-  const subs = res.data.data;
+  if (!subs) {
+    return <div>Loading...</div>;
+  }
+
+  if (subs.error) {
+    return <div>Error: {subs.error.message}</div>;
+  }
 
   return (
     <Table className="w-full max-w-[90vw]">
@@ -26,7 +34,7 @@ async function SubsTable() {
         </TableRow>
       </TableHeader>
       <TableBody>
-        {subs.map((sub, index: number) => (
+        {subs.response.data.map((sub: any, index: number) => (
           <TableRow key={index}>
             <TableCell className="font-medium">{sub.user_name}</TableCell>
             <TableCell>{sub.tier.split("0")}</TableCell>
@@ -37,7 +45,7 @@ async function SubsTable() {
       <TableFooter>
         <TableRow>
           <TableCell colSpan={4}>Total</TableCell>
-          <TableCell className="text-right">{subs.length}</TableCell>
+          <TableCell className="text-right">{subs.response.total}</TableCell>
         </TableRow>
       </TableFooter>
     </Table>
