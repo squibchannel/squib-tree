@@ -25,16 +25,7 @@ function AuthButton() {
   return (
     <div className="mr-6">
       {status !== "loading" && (
-        <Button onClick={handleClick}>
-          {data && (
-            <img
-              className="h-6 w-6 mr-4 rounded-full"
-              src={data.user.image!}
-              alt={data.user.name!}
-            />
-          )}
-          {buttonText}
-        </Button>
+        <Button onClick={handleClick}>{buttonText}</Button>
       )}
     </div>
   );

@@ -21,10 +21,6 @@ function EditorsTable() {
     return <div>Loading...</div>;
   }
 
-  if (editors.error) {
-    return <div>Error: {editors.error.message}</div>;
-  }
-
   return (
     <Table className="w-full max-w-[90vw]">
       <TableHeader>
@@ -34,7 +30,7 @@ function EditorsTable() {
         </TableRow>
       </TableHeader>
       <TableBody>
-        {editors.response.data.map((editor: Editor, index: number) => (
+        {editors.data.map((editor: Editor, index: number) => (
           <TableRow key={index}>
             <TableCell className="font-medium">{editor.user_name}</TableCell>
             <TableCell className="font-medium">
@@ -46,9 +42,7 @@ function EditorsTable() {
       <TableFooter>
         <TableRow>
           <TableCell colSpan={4}>Total</TableCell>
-          <TableCell className="text-right">
-            {editors.response.data.length}
-          </TableCell>
+          <TableCell className="text-right">{editors.data.length}</TableCell>
         </TableRow>
       </TableFooter>
     </Table>

@@ -20,10 +20,6 @@ function SubsTable() {
     return <div>Loading...</div>;
   }
 
-  if (subs.error) {
-    return <div>Error: {subs.error.message}</div>;
-  }
-
   return (
     <Table className="w-full max-w-[90vw]">
       <TableHeader>
@@ -34,7 +30,7 @@ function SubsTable() {
         </TableRow>
       </TableHeader>
       <TableBody>
-        {subs.response.data.map((sub: any, index: number) => (
+        {subs.data.map((sub: any, index: number) => (
           <TableRow key={index}>
             <TableCell className="font-medium">{sub.user_name}</TableCell>
             <TableCell>{sub.tier.split("0")}</TableCell>
@@ -45,7 +41,7 @@ function SubsTable() {
       <TableFooter>
         <TableRow>
           <TableCell colSpan={4}>Total</TableCell>
-          <TableCell className="text-right">{subs.response.total}</TableCell>
+          <TableCell className="text-right">{subs.total}</TableCell>
         </TableRow>
       </TableFooter>
     </Table>

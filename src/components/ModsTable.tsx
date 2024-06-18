@@ -21,9 +21,7 @@ function ModsTable() {
     return <div>Loading...</div>;
   }
 
-  if (mods.error) {
-    return <div>Error: {mods.error.message}</div>;
-  }
+  console.log(mods);
 
   return (
     <Table className="w-full max-w-[90vw]">
@@ -33,7 +31,7 @@ function ModsTable() {
         </TableRow>
       </TableHeader>
       <TableBody>
-        {mods.response.data.map((mod: Moderator, index: number) => (
+        {mods.data.map((mod: Moderator, index: number) => (
           <TableRow key={index}>
             <TableCell className="font-medium">{mod.user_name}</TableCell>
           </TableRow>
@@ -42,9 +40,7 @@ function ModsTable() {
       <TableFooter>
         <TableRow>
           <TableCell colSpan={4}>Total</TableCell>
-          <TableCell className="text-right">
-            {mods.response.data.length}
-          </TableCell>
+          <TableCell className="text-right">{mods.data.length}</TableCell>
         </TableRow>
       </TableFooter>
     </Table>

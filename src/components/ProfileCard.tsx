@@ -1,39 +1,36 @@
 import React from "react";
 import {
   Card,
-  CardContent,
-  CardDescription,
   CardHeader,
   CardTitle,
+  CardContent,
+  CardDescription,
 } from "./ui/card";
 import { auth } from "@/auth";
+import { useSession } from "next-auth/react";
 
 async function ProfileCard() {
   const session = await auth();
-  // console.log(session);
 
   return (
-    <Card className="xl:col-span-2" x-chunk="dashboard-01-chunk-4">
-      <CardHeader className="flex flex-row items-center">
+    <Card className="w-[50vw] mx-auto bg-gray-900 shadow-lg rounded-lg overflow-hidden">
+      <CardHeader className="flex flex-row items-center justify-center text-center bg-purple-800 px-4 py-2">
         <div className="grid gap-2">
-          <CardTitle className="flex items-center">
-            {session?.user.image && (
-              <img
-                src={session.user.image}
-                alt={`${session?.user.name}'s profile`}
-                className="w-8 h-8 rounded-full mr-2"
-              />
-            )}
+          <CardTitle className="flex items-center text-lg font-semibold text-purple-100">
             {session?.user.name}
+            <img
+              src={session?.user.image || ""}
+              alt={`${session?.user.name}'s profile`}
+              className="w-12 h-12 rounded-full mr-2 ml-2"
+            />
           </CardTitle>
-          <CardDescription>
-            Check me out on{" "}
+          <CardDescription className="mt-4">
             <a
               href={`https://twitch.tv/${session?.user.name}`}
               target="_blank"
               rel="noopener noreferrer"
             >
-              twitch!
+              <span className="text-primary font-extrabold">twitch.tv</span>
             </a>
           </CardDescription>
         </div>

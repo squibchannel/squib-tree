@@ -21,10 +21,6 @@ function VipsTable() {
     return <div>Loading...</div>;
   }
 
-  if (vips.error) {
-    return <div>Error: {vips.error.message}</div>;
-  }
-
   return (
     <Table className="w-full max-w-[90vw]">
       <TableHeader>
@@ -33,7 +29,7 @@ function VipsTable() {
         </TableRow>
       </TableHeader>
       <TableBody>
-        {vips.response.data.map((vip: VIP, index: number) => (
+        {vips.data.map((vip: VIP, index: number) => (
           <TableRow key={index}>
             <TableCell className="font-medium">{vip.user_name}</TableCell>
           </TableRow>
@@ -42,9 +38,7 @@ function VipsTable() {
       <TableFooter>
         <TableRow>
           <TableCell colSpan={4}>Total</TableCell>
-          <TableCell className="text-right">
-            {vips.response.data.length}
-          </TableCell>
+          <TableCell className="text-right">{vips.data.length}</TableCell>
         </TableRow>
       </TableFooter>
     </Table>

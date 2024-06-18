@@ -12,3 +12,14 @@ import { TWITCH_SCOPES } from "./const";
 export async function initiateTwitchOAuth() {
   await signIn("twitch", { scopes: TWITCH_SCOPES });
 }
+
+export function getRandomIndices(max: number, count: number): number[] {
+  const indices: number[] = [];
+  while (indices.length < count) {
+    const randomIndex = Math.floor(Math.random() * max);
+    if (!indices.includes(randomIndex)) {
+      indices.push(randomIndex);
+    }
+  }
+  return indices;
+}

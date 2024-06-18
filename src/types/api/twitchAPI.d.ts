@@ -1,3 +1,5 @@
+import { AxiosError } from "axios";
+
 export type TwitchFollowedChannelsResponse = {
   data: {
     followed_at: string;
@@ -9,6 +11,7 @@ export type TwitchFollowedChannelsResponse = {
     cursor: string;
   };
   total: number;
+  error: any;
 };
 
 export type BroadcasterSubscription = {
@@ -31,6 +34,7 @@ export type BroadcasterSubscription = {
     points: number; // The current number of subscriber points earned by this broadcaster
     total: number; // The total number of users that subscribe to this broadcaster
   };
+  total: number;
 };
 
 export interface GetModeratorsRequestParams {
