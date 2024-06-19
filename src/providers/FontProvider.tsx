@@ -20,12 +20,12 @@ export const useFont = () => {
 
 export const FontProvider = ({ children }: { children: React.ReactNode }) => {
   const [currentFont, setCurrentFont] = useState<string>(() => {
-    if (typeof window !== "undefined") {
-      const storedFont = localStorage.getItem("selectedFont");
-      return storedFont ? storedFont : fontMap[FontKey.Silkscreen];
-    } else {
-      return fontMap[FontKey.Silkscreen]; // Fallback in non-browser environment
-    }
+    // if (typeof window !== "undefined") {
+    const storedFont = localStorage.getItem("selectedFont");
+    return storedFont ? storedFont : fontMap[FontKey.Silkscreen];
+    // } else {
+    //   return fontMap[FontKey.Silkscreen]; // Fallback in non-browser environment
+    // }
   });
 
   const setFont = (font: FontKey) => {

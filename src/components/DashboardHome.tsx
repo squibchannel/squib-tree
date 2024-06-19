@@ -35,12 +35,12 @@ function DashboardHome() {
   return (
     <Card className="w-fit p-4 border-transparent mx-auto">
       <div className="grid gap-8 grid-cols-1 md:grid-cols-2 lg:grid-cols-3">
+        <ThirtyDayCard data={thirtyDay} />
         {followers && <FollowersCard followers={followers} />}
         {subs && <SubsCard subs={subs} />}
         {vips && <VipsCard vips={vips} />}
         {mods && <ModsCard mods={mods} />}
         {editors && <EditorsCard editors={editors} />}
-        <ThirtyDayCard data={thirtyDay} />
       </div>
     </Card>
   );

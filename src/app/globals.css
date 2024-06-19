@@ -97,7 +97,7 @@
   white-space: nowrap;
   overflow: hidden;
   border-right: 0.1em solid gray; /* Adjust border style as needed */
-  animation: typewriter 2s steps(20) infinite; /* Adjust duration and steps as needed */
+  animation: typewriter 1s steps(20) infinite; /* Adjust duration and steps as needed */
 }
 
 @keyframes blink-caret {
