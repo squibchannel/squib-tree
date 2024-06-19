@@ -1,19 +1,17 @@
-import React from "react";
+import { auth } from "@/auth";
 import {
   Card,
-  CardHeader,
-  CardTitle,
   CardContent,
   CardDescription,
+  CardHeader,
+  CardTitle,
 } from "./ui/card";
-import { auth } from "@/auth";
-import { useSession } from "next-auth/react";
 
 async function ProfileCard() {
   const session = await auth();
 
   return (
-    <Card className="w-[50vw] mx-auto bg-gray-900 shadow-lg rounded-lg overflow-hidden">
+    <Card className="w-fit min-w-[35vw] mx-auto bg-gray-900 shadow-lg rounded-lg overflow-hidden">
       <CardHeader className="flex flex-row items-center justify-center text-center bg-purple-800 px-4 py-2">
         <div className="grid gap-2">
           <CardTitle className="flex items-center text-lg font-semibold text-purple-100">

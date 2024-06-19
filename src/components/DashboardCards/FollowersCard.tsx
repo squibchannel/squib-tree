@@ -20,7 +20,7 @@ function FollowersCard({ followers }: FollowersCardProps) {
   const recentFollowers = followers.response.data.slice(0, 3);
 
   return (
-    <Card className="bg-gray-900 shadow-lg rounded-lg overflow-hidden w-fit">
+    <Card className="bg-gray-900 shadow-lg rounded-lg overflow-hidden">
       <CardHeader className="bg-purple-800 px-4 py-2">
         <CardTitle className="text-lg font-semibold text-purple-100">
           Followers
@@ -46,7 +46,10 @@ function FollowersCard({ followers }: FollowersCardProps) {
           )}
         </ul>
         <p className="mt-4 text-purple-200">
-          Total: {followers.response.total || 0}
+          Total:{" "}
+          <span className="bg-purple-700 rounded-full px-3 py-1 text-sm text-purple-100 bg-opacity-25">
+            {followers.response.total || 0}
+          </span>
         </p>
       </CardContent>
     </Card>

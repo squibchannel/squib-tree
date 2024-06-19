@@ -80,6 +80,36 @@
   }
 }
 
+@keyframes typewriter {
+  0% {
+    width: 0;
+  }
+  90% {
+    width: 100%;
+  }
+  100% {
+    width: 100%;
+  }
+}
+
+.animate-typewriter {
+  display: inline-block;
+  white-space: nowrap;
+  overflow: hidden;
+  border-right: 0.1em solid gray; /* Adjust border style as needed */
+  animation: typewriter 2s steps(20) infinite; /* Adjust duration and steps as needed */
+}
+
+@keyframes blink-caret {
+  from,
+  to {
+    border-color: transparent;
+  }
+  50% {
+    border-color: gray;
+  }
+}
+
 @layer base {
   * {
     @apply border-border;

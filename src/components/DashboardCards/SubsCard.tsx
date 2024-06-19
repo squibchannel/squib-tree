@@ -1,6 +1,9 @@
 import React from "react";
 import { Card, CardHeader, CardTitle, CardContent } from "../ui/card";
-import { TwitchFollowedChannelsResponse } from "@/types/api/twitchAPI";
+import {
+  BroadcasterSubscription,
+  TwitchFollowedChannelsResponse,
+} from "@/types/api/twitchAPI";
 import Link from "next/link";
 import { auth } from "@/auth";
 import { useSession } from "next-auth/react";
@@ -8,7 +11,7 @@ import { useSession } from "next-auth/react";
 interface subsCardProps {
   subs?: {
     response?: {
-      data: TwitchFollowedChannelsResponse["data"][0][]; // Array of first-level data
+      data: BroadcasterSubscription["data"][0][]; // Array of first-level data
       total?: number;
     };
   };
@@ -26,7 +29,7 @@ function SubsCard({ subs }: subsCardProps) {
   const randomSubs = shuffledSubs.slice(0, 3);
 
   return (
-    <Card className="bg-gray-900 shadow-lg rounded-lg overflow-hidden w-fit">
+    <Card className="bg-gray-900 shadow-lg rounded-lg overflow-hidden">
       <CardHeader className="bg-purple-800 px-4 py-2">
         <CardTitle className="text-lg font-semibold text-purple-100">
           Subscribers
@@ -35,7 +38,7 @@ function SubsCard({ subs }: subsCardProps) {
       <CardContent className="px-4 py-2">
         <p className="mb-4 text-purple-200">Random Few:</p>
         <ul className="flex flex-wrap gap-2">
-          {randomSubs.map((sub: TwitchFollowedChannelsResponse["data"][0]) => (
+          {randomSubs.map((sub: BroadcasterSubscription["data"][0]) => (
             <li
               key={sub.user_id}
               className="bg-purple-700 rounded-full px-3 py-1 text-sm text-purple-100"
@@ -50,7 +53,10 @@ function SubsCard({ subs }: subsCardProps) {
           ))}
         </ul>
         <p className="mt-4 text-purple-200">
-          Total: {subs.response.total || 0}
+          Total:{" "}
+          <span className="bg-purple-700 rounded-full px-3 py-1 text-sm text-purple-100 bg-opacity-25">
+            {subs.response.total || 0}
+          </span>
         </p>
       </CardContent>
     </Card>

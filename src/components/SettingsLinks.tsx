@@ -23,7 +23,11 @@ function SettingsLinks() {
     <>
       {links.map((link) => {
         return (
-          <Link href={link.href} className={getLinkClass(link.href)}>
+          <Link
+            key={link.label + "-key"}
+            href={link.href}
+            className={getLinkClass(link.href)}
+          >
             {link.label}
           </Link>
         );

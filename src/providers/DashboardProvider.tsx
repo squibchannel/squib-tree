@@ -1,17 +1,22 @@
 "use client";
 
+import { createContext, ReactNode, useEffect, useState } from "react";
 import { fetchAllTwitchData, TwitchResponse } from "@/actions/twitchData";
+import { fetchThirtyDaySummary } from "@/lib/axios/twitchTrackerAPI";
 import {
   BroadcasterSubscription,
-  Editor,
   GetChannelEditorsResponse,
   GetModeratorsResponse,
   GetVIPsResponse,
-  Moderator,
   TwitchFollowedChannelsResponse,
-  VIP,
 } from "@/types/api/twitchAPI";
-import { createContext, useEffect, useState } from "react";
+
+export type ThirtyDaySummaryType = {
+  avgViewers: number;
+  minStreamed: number;
+  hrsWatched: number;
+  maxViewers: number;
+};
 
 export type TwitchDataType = {
   allData: TwitchResponse[];
@@ -21,6 +26,7 @@ export type TwitchDataType = {
   vips: GetVIPsResponse | null;
   mods: GetModeratorsResponse | null;
   editors: GetChannelEditorsResponse | null;
+  thirtyDay: ThirtyDaySummaryType | null; // Use the defined type here
 };
 
 export const DashboardContext = createContext<TwitchDataType>({
@@ -31,9 +37,14 @@ export const DashboardContext = createContext<TwitchDataType>({
   vips: null,
   mods: null,
   editors: null,
+  thirtyDay: null,
 });
 
-export default function DashboardProvider({ children }: { children?: any }) {
+export default function DashboardProvider({
+  children,
+}: {
+  children?: ReactNode;
+}) {
   const [allTwitchData, setAllTwitchData] = useState<TwitchResponse[]>([]);
   const [followers, setFollowers] =
     useState<TwitchFollowedChannelsResponse | null>(null);
@@ -43,6 +54,7 @@ export default function DashboardProvider({ children }: { children?: any }) {
   const [editors, setEditors] = useState<GetChannelEditorsResponse | null>(
     null
   );
+  const [thirtyDay, setThirtyDay] = useState<ThirtyDaySummaryType | null>(null); // Use the defined type here
 
   const fetchData = async () => {
     try {
@@ -63,8 +75,29 @@ export default function DashboardProvider({ children }: { children?: any }) {
 
       const editorsData = res.find((data) => data.action === "editors");
       setEditors(editorsData?.response || null);
+
+      await fetchTwitchTrackerData();
     } catch (error) {
       console.error("Error fetching Twitch data:", error);
+    }
+  };
+
+  const fetchTwitchTrackerData = async () => {
+    try {
+      const thirty = await fetchThirtyDaySummary();
+      if (thirty) {
+        const thirtyDaySummary: ThirtyDaySummaryType = {
+          avgViewers: thirty.avg_viewers,
+          minStreamed: thirty.minutes_streamed,
+          hrsWatched: thirty.hours_watched,
+          maxViewers: thirty.max_viewers,
+        };
+        setThirtyDay(thirtyDaySummary);
+      } else {
+        setThirtyDay(null); // Handle case where fetchThirtyDaySummary returns null
+      }
+    } catch (error) {
+      console.error("Error fetching thirty day summary:", error);
     }
   };
 
@@ -82,6 +115,7 @@ export default function DashboardProvider({ children }: { children?: any }) {
         vips,
         mods,
         editors,
+        thirtyDay,
       }}
     >
       {children}

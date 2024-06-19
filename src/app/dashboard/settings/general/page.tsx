@@ -1,7 +1,12 @@
+import FontSelector from "@/components/FontSelector";
 import React from "react";
 
 function GeneralSettings() {
-  return <div>General Settings</div>;
+  return (
+    <div>
+      <FontSelector />
+    </div>
+  );
 }
 
 export default GeneralSettings;

@@ -1,3 +1,75 @@
+import {
+  Silkscreen as SilkscreenLoader,
+  Roboto as RobotoLoader,
+  Titillium_Web as TitilliumWebLoader,
+  Lora as LoraLoader,
+  Ubuntu as UbuntuLoader,
+  Oswald as OswaldLoader,
+  Inter as InterLoader,
+  Shadows_Into_Light as ShadowsIntoLightLoader,
+  Permanent_Marker as PermanentMarkerLoader,
+  Satisfy as SatisfyLoader,
+  Acme as AcmeLoader,
+  Changa as ChangaLoader,
+  Sacramento as SacramentoLoader,
+  Unna as UnnaLoader,
+} from "next/font/google";
+
+const Silkscreen = SilkscreenLoader({ weight: "400", subsets: ["latin"] });
+const Roboto = RobotoLoader({ weight: "400", subsets: ["latin"] });
+const Titillium_Web = TitilliumWebLoader({ weight: "400", subsets: ["latin"] });
+const Lora = LoraLoader({ weight: "400", subsets: ["latin"] });
+const Ubuntu = UbuntuLoader({ weight: "400", subsets: ["latin"] });
+const Oswald = OswaldLoader({ weight: "400", subsets: ["latin"] });
+const Inter = InterLoader({ weight: "400", subsets: ["latin"] });
+const Shadows_Into_Light = ShadowsIntoLightLoader({
+  weight: "400",
+  subsets: ["latin"],
+});
+const Permanent_Marker = PermanentMarkerLoader({
+  weight: "400",
+  subsets: ["latin"],
+});
+const Satisfy = SatisfyLoader({ weight: "400", subsets: ["latin"] });
+const Acme = AcmeLoader({ weight: "400", subsets: ["latin"] });
+const Changa = ChangaLoader({ weight: "400", subsets: ["latin"] });
+const Sacramento = SacramentoLoader({ weight: "400", subsets: ["latin"] });
+const Unna = UnnaLoader({ weight: "400", subsets: ["latin"] });
+
+export enum FontKey {
+  Silkscreen = "Silkscreen",
+  Roboto = "Roboto",
+  Titillium_Web = "Titillium_Web",
+  Lora = "Lora",
+  Ubuntu = "Ubuntu",
+  Oswald = "Oswald",
+  Inter = "Inter",
+  Shadows_Into_Light = "Shadows_Into_Light",
+  Permanent_Marker = "Permanent_Marker",
+  Satisfy = "Satisfy",
+  Acme = "Acme",
+  Changa = "Changa",
+  Sacramento = "Sacramento",
+  Unna = "Unna",
+}
+
+export const fontMap = {
+  [FontKey.Silkscreen]: Silkscreen.className,
+  [FontKey.Roboto]: Roboto.className,
+  [FontKey.Titillium_Web]: Titillium_Web.className,
+  [FontKey.Lora]: Lora.className,
+  [FontKey.Ubuntu]: Ubuntu.className,
+  [FontKey.Oswald]: Oswald.className,
+  [FontKey.Inter]: Inter.className,
+  [FontKey.Shadows_Into_Light]: Shadows_Into_Light.className,
+  [FontKey.Permanent_Marker]: Permanent_Marker.className,
+  [FontKey.Satisfy]: Satisfy.className,
+  [FontKey.Acme]: Acme.className,
+  [FontKey.Changa]: Changa.className,
+  [FontKey.Sacramento]: Sacramento.className,
+  [FontKey.Unna]: Unna.className,
+};
+
 export const socials: { title: string; href: string; description: string }[] = [
   {
     title: "Twitch",
