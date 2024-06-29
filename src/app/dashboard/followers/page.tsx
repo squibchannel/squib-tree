@@ -1,4 +1,4 @@
-import FollowersTable from "@/components/FollowersTable";
+import FollowersTable from "@/components/Tables/FollowersTable";
 
 function FollowersPage() {
   return <FollowersTable />;

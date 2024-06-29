@@ -1,5 +1,5 @@
 import React from "react";
-import TwitchClips from "@/components/TwitchClips";
+import TwitchClips from "@/components/Clips/TwitchClips";
 import PaginationNav from "@/components/nav/PaginationNav";
 
 function ClipsPage() {

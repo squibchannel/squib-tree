@@ -11,8 +11,8 @@ import {
 import { socials } from "@/lib/const";
 import { cn } from "@/lib/utils";
 import { ComponentPropsWithoutRef, ElementRef, forwardRef } from "react";
-import AuthButton from "./AuthButton";
-import { ModeToggle } from "./ModeToggle";
+import AuthButton from "../Buttons/AuthButton";
+import { ModeToggle } from "../ModeToggle";
 import { dashboardMenu } from "@/lib/const";
 import Link from "next/link";
 
@@ -63,8 +63,8 @@ export function SquibNavMenu() {
             <ul className="grid w-[400px] gap-3 p-4 md:w-[500px] md:grid-cols-2 lg:w-[600px] ">
               {socials.map((social) => (
                 <ListItem
-                  key={social.title}
-                  title={social.title}
+                  key={social.platform}
+                  title={social.platform}
                   href={social.href}
                   target="_blank"
                 >

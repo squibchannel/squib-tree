@@ -1,4 +1,4 @@
-import ModsTable from "@/components/ModsTable";
+import ModsTable from "@/components/Tables/ModsTable";
 import React from "react";
 
 async function ModsPage() {

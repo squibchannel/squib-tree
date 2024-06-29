@@ -28,7 +28,7 @@ function EditorsCard({ editors }: editorsCardProps) {
     <Card className="bg-gray-900 shadow-lg rounded-lg overflow-hidden">
       <CardHeader className="bg-purple-800 px-4 py-2">
         <CardTitle className="text-lg font-semibold text-purple-100">
-          editors
+          Editors
         </CardTitle>
       </CardHeader>
       <CardContent className="px-4 py-2">

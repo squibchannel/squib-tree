@@ -1,4 +1,4 @@
-import VipsTable from "@/components/VipsTable";
+import VipsTable from "@/components/Tables/VipsTable";
 import React from "react";
 
 async function VipsPage() {

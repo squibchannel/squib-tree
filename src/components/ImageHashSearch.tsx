@@ -32,15 +32,8 @@ function ImageHashSearch() {
         let base64String = reader.result;
 
         if (!base64String || typeof base64String !== "string") {
-          // TODO: give a error message to the user that there is no string or whatever
-          // Toaster
-
           return;
         }
-
-        /*
-            We could send a prompt with this and yeet it an ai image predictor tooooo
-        */
 
         const splittedString: string = base64String.split(",")[1];
 

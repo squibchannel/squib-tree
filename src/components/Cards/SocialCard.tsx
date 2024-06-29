@@ -10,7 +10,7 @@ import {
 import { SocialIcon } from "react-social-icons";
 
 interface SocialCardProps {
-  key: string;
+  keyId: string;
   title: string;
   description: string;
   href: string;
@@ -27,7 +27,7 @@ const bitSounds = [
 ];
 
 const SocialCard: React.FC<SocialCardProps> = ({
-  key,
+  keyId,
   title,
   description,
   href,
@@ -48,7 +48,7 @@ const SocialCard: React.FC<SocialCardProps> = ({
   return (
     <>
       <Card
-        key={key + "-social-card"}
+        key={keyId + "-social-card"}
         className="hover:bg-slate-950 cursor-pointer"
         onClick={handleClick}
       >

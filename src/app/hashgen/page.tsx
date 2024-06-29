@@ -1,6 +1,6 @@
 // https://mukeshsolanki.gitbook.io/hashtag-api/reference/api-reference/hashtags
 
-import CopyHashesButton from "@/components/CopyHashesButton";
+import CopyHashesButton from "@/components/Buttons/CopyHashesButton";
 import KeywordHashSearch from "@/components/KeywordHashSearch";
 import RenderMarquee from "@/components/RenderMarquee";
 import HashTitle from "@/components/HashTitle";

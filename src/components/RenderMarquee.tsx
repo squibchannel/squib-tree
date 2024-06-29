@@ -2,7 +2,7 @@
 
 import React from "react";
 import Marquee from "./ui/marquee";
-import TagCard from "./TagCard";
+import TagCard from "./Cards/TagCard";
 import useTags from "@/hooks/useTags";
 import { cn } from "@/lib/utils";
 

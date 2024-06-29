@@ -8,16 +8,6 @@ import {
   fetchTwitchVips,
 } from "@/actions/twitchRequests";
 import { twitchAPI } from "@/lib/axios/twitchAPI";
-import {
-  BroadcasterSubscription,
-  Editor,
-  GetChannelEditorsResponse,
-  GetModeratorsResponse,
-  GetVIPsResponse,
-  Moderator,
-  TwitchFollowedChannelsResponse,
-  VIP,
-} from "@/types/api/twitchAPI";
 import { AxiosError, AxiosResponse } from "axios";
 
 // Define Twitch actions to fetch data

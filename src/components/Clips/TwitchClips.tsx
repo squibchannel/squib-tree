@@ -4,7 +4,7 @@ import { useEffect, useState } from "react";
 import { getClips } from "@/actions/twitchRequests";
 import { toast } from "sonner";
 import ClipGrid from "./ClipGrid";
-import PaginationNav from "./nav/PaginationNav";
+import PaginationNav from "../nav/PaginationNav";
 import { Clip, GetClipsResponse } from "@/types/api/twitchAPI";
 
 function TwitchClips() {

@@ -1,7 +1,31 @@
-import React from "react";
+"use client";
+
+import SocialsDisplay from "@/components/Cards/SocialsDisplay";
+import { Button } from "@/components/ui/button";
+import useTree from "@/hooks/useTree";
+import React, { useEffect } from "react";
 
 function SocialsSettings() {
-  return <div>Socials Settings</div>;
+  const { addSocialLink } = useTree();
+
+  const newSocial = {
+    platform: "twitter",
+    description: "a place to cry",
+    href: "https://x.com/Squibchannel",
+  };
+
+  const handleNewSocial = () => {
+    addSocialLink(newSocial, true);
+  };
+
+  return (
+    <div>
+      <SocialsDisplay />
+      <Button className="mt-4" onClick={handleNewSocial}>
+        Add New Social
+      </Button>
+    </div>
+  );
 }
 
 export default SocialsSettings;

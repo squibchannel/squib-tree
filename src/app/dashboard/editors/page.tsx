@@ -1,4 +1,4 @@
-import EditorsTable from "@/components/EditorsTable";
+import EditorsTable from "@/components/Tables/EditorsTable";
 import React from "react";
 
 function EditorsPage() {
