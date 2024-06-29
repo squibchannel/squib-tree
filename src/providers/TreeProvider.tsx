@@ -1,6 +1,5 @@
 "use client";
 
-// Import necessary dependencies
 import React, { createContext, ReactNode, useEffect, useState } from "react";
 import { SessionContextValue, useSession } from "next-auth/react";
 import { SocialProps, socials } from "@/lib/const"; // Adjust path as needed
@@ -24,6 +23,7 @@ export type TreeContextType = {
 export const TreeContext = createContext<TreeContextType>({
   session: null,
   userSocials: [],
+  squibSocials: [],
   addSocialLink: (newSocial: SocialProps, isSquib?: boolean) => {},
   handleSocialChange: (
     index: number,
@@ -32,66 +32,56 @@ export const TreeContext = createContext<TreeContextType>({
     isSquib?: boolean
   ) => {},
   removeSocialLink: (index: number, isSquib?: boolean) => {},
-  squibSocials: [],
 });
 
 // Define TreeProvider component
 export default function TreeProvider({ children }: { children?: ReactNode }) {
   const session = useSession();
-
-  const [userSocials, setUserSocials] = useState<SocialProps[]>([]);
-  const [squibSocials, setSquibSocials] = useState<SocialProps[]>(socials);
-
   const localStorage = window.localStorage;
 
-  const getStoredSocials = (key: string) => {
+  const userSocialsKey = "userSocials";
+  const squibSocialsKey = "squibSocials";
+
+  const getStoredSocials = (key: string): SocialProps[] | null => {
     const storedSocials = localStorage.getItem(key);
-    return storedSocials ? JSON.parse(storedSocials) : false;
+    return storedSocials ? JSON.parse(storedSocials) : null;
   };
 
   const setStoredSocials = (key: string, socials: SocialProps[]) => {
     localStorage.setItem(key, JSON.stringify(socials));
   };
 
-  const userSocialsKey = "userSocials";
-  const squibSocialsKey = "squibSocials";
+  const [userSocials, setUserSocials] = useState<SocialProps[]>(() => {
+    const storedUserSocials = getStoredSocials(userSocialsKey);
+    return storedUserSocials !== null ? storedUserSocials : [];
+  });
 
-  let storedUserSocials = getStoredSocials(userSocialsKey);
-  let storedSquibSocials = getStoredSocials(squibSocialsKey);
+  const [squibSocials, setSquibSocials] = useState<SocialProps[]>(() => {
+    const storedSquibSocials = getStoredSocials(squibSocialsKey);
+    return storedSquibSocials !== null ? storedSquibSocials : socials;
+  });
 
   useEffect(() => {
+    const storedUserSocials = getStoredSocials(userSocialsKey);
     if (storedUserSocials) {
       setUserSocials(storedUserSocials);
     }
 
+    const storedSquibSocials = getStoredSocials(squibSocialsKey);
     if (storedSquibSocials) {
       setSquibSocials(storedSquibSocials);
     }
   }, []);
 
   const addSocialLink = (newSocial: SocialProps, isSquib?: boolean) => {
-    // let storedUserSocials = getStoredSocials(userSocialsKey);
-    // let storedSquibSocials = getStoredSocials(squibSocialsKey);
-
     if (!isSquib) {
-      if (storedUserSocials) {
-        setUserSocials(storedUserSocials);
-      }
-
-      const updatedUserSocials = [...storedUserSocials, newSocial];
+      const updatedUserSocials = [...userSocials, newSocial];
       setUserSocials(updatedUserSocials);
       setStoredSocials(userSocialsKey, updatedUserSocials);
     } else {
-      if (!storedSquibSocials) {
-        const updatedSquibSocials = [...squibSocials, newSocial];
-        setSquibSocials(updatedSquibSocials);
-        setStoredSocials(squibSocialsKey, updatedSquibSocials);
-      } else {
-        setSquibSocials(storedSquibSocials);
-        const updatedSquibSocials = [...storedSquibSocials, newSocial];
-        setSquibSocials(updatedSquibSocials);
-        setStoredSocials(squibSocialsKey, updatedSquibSocials);
-      }
+      const updatedSquibSocials = [...squibSocials, newSocial];
+      setSquibSocials(updatedSquibSocials);
+      setStoredSocials(squibSocialsKey, updatedSquibSocials);
     }
   };
 
@@ -102,15 +92,19 @@ export default function TreeProvider({ children }: { children?: ReactNode }) {
     isSquib?: boolean
   ) => {
     if (!isSquib) {
-      const storedUserSocials = getStoredSocials(userSocialsKey);
-      const updatedUserSocials = [...storedUserSocials];
-      updatedUserSocials[index][field] = value;
+      const updatedUserSocials = [...userSocials];
+      updatedUserSocials[index] = {
+        ...updatedUserSocials[index],
+        [field]: value,
+      };
       setUserSocials(updatedUserSocials);
       setStoredSocials(userSocialsKey, updatedUserSocials);
     } else {
-      const storedSquibSocials = getStoredSocials(squibSocialsKey);
-      const updatedSquibSocials = [...storedSquibSocials];
-      updatedSquibSocials[index][field] = value;
+      const updatedSquibSocials = [...squibSocials];
+      updatedSquibSocials[index] = {
+        ...updatedSquibSocials[index],
+        [field]: value,
+      };
       setSquibSocials(updatedSquibSocials);
       setStoredSocials(squibSocialsKey, updatedSquibSocials);
     }
@@ -118,14 +112,12 @@ export default function TreeProvider({ children }: { children?: ReactNode }) {
 
   const removeSocialLink = (index: number, isSquib?: boolean) => {
     if (!isSquib) {
-      const storedUserSocials = getStoredSocials(userSocialsKey);
-      const updatedUserSocials = [...storedUserSocials];
+      const updatedUserSocials = [...userSocials];
       updatedUserSocials.splice(index, 1);
       setUserSocials(updatedUserSocials);
       setStoredSocials(userSocialsKey, updatedUserSocials);
     } else {
-      const storedSquibSocials = getStoredSocials(squibSocialsKey);
-      const updatedSquibSocials = [...storedSquibSocials];
+      const updatedSquibSocials = [...squibSocials];
       updatedSquibSocials.splice(index, 1);
       setSquibSocials(updatedSquibSocials);
       setStoredSocials(squibSocialsKey, updatedSquibSocials);
@@ -138,10 +130,10 @@ export default function TreeProvider({ children }: { children?: ReactNode }) {
       value={{
         session,
         userSocials,
+        squibSocials,
         addSocialLink,
         handleSocialChange,
         removeSocialLink,
-        squibSocials,
       }}
     >
       {children}

@@ -2,41 +2,45 @@
 
 import { useEffect, useState } from "react";
 import SocialCard from "../Cards/SocialCard";
-
 import useTree from "@/hooks/useTree";
+import { SocialProps } from "@/lib/const";
 
 function TreeSocials() {
   const { squibSocials } = useTree();
-
-  const [socials, setSocials] = useState(squibSocials);
 
   const localStorage = window.localStorage;
 
   const getStoredSocials = (key: string) => {
     const storedSocials = localStorage.getItem(key);
-    return storedSocials ? JSON.parse(storedSocials) : false;
+    return storedSocials ? JSON.parse(storedSocials) : null;
   };
+
+  const [socials, setSocials] = useState(() => {
+    const storedSocials = getStoredSocials("squibSocials");
+    return storedSocials || squibSocials;
+  });
 
   useEffect(() => {
     const storedSocials = getStoredSocials("squibSocials");
 
-    if (!storedSocials) {
-      console.log("No stored socials");
-      return;
+    if (storedSocials) {
+      setSocials(storedSocials);
     }
+  }, []);
 
-    setSocials(storedSocials);
-  }, [socials]);
-
-  return socials.map((social, i) => (
-    <SocialCard
-      key={i}
-      keyId={social.platform}
-      title={social.platform.toLowerCase()}
-      description={social.description}
-      href={social.href}
-    />
-  ));
+  return (
+    <>
+      {socials.map((social: SocialProps, i: number) => (
+        <SocialCard
+          key={i}
+          keyId={social.platform}
+          title={social.platform.toLowerCase()}
+          description={social.description}
+          href={social.href}
+        />
+      ))}
+    </>
+  );
 }
 
 export default TreeSocials;
