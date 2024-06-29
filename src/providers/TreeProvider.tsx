@@ -14,7 +14,8 @@ export type TreeContextType = {
   handleSocialChange: (
     index: number,
     field: keyof SocialProps,
-    value: string
+    value: string,
+    isSquib?: boolean
   ) => void;
   removeSocialLink: (index: number, isSquib?: boolean) => void;
 };
@@ -27,7 +28,8 @@ export const TreeContext = createContext<TreeContextType>({
   handleSocialChange: (
     index: number,
     field: keyof SocialProps,
-    value: string
+    value: string,
+    isSquib?: boolean
   ) => {},
   removeSocialLink: (index: number, isSquib?: boolean) => {},
   squibSocials: [],
@@ -96,22 +98,37 @@ export default function TreeProvider({ children }: { children?: ReactNode }) {
   const handleSocialChange = (
     index: number,
     field: keyof SocialProps,
-    value: string
+    value: string,
+    isSquib?: boolean
   ) => {
-    const updatedSocials = [...userSocials];
-    updatedSocials[index][field] = value;
-    setUserSocials(updatedSocials);
+    if (!isSquib) {
+      const storedUserSocials = getStoredSocials(userSocialsKey);
+      const updatedUserSocials = [...storedUserSocials];
+      updatedUserSocials[index][field] = value;
+      setUserSocials(updatedUserSocials);
+      setStoredSocials(userSocialsKey, updatedUserSocials);
+    } else {
+      const storedSquibSocials = getStoredSocials(squibSocialsKey);
+      const updatedSquibSocials = [...storedSquibSocials];
+      updatedSquibSocials[index][field] = value;
+      setSquibSocials(updatedSquibSocials);
+      setStoredSocials(squibSocialsKey, updatedSquibSocials);
+    }
   };
 
   const removeSocialLink = (index: number, isSquib?: boolean) => {
     if (!isSquib) {
-      const updatedSocials = [...userSocials];
-      updatedSocials.splice(index, 1);
-      setUserSocials(updatedSocials);
+      const storedUserSocials = getStoredSocials(userSocialsKey);
+      const updatedUserSocials = [...storedUserSocials];
+      updatedUserSocials.splice(index, 1);
+      setUserSocials(updatedUserSocials);
+      setStoredSocials(userSocialsKey, updatedUserSocials);
     } else {
-      const updatedSocials = [...squibSocials];
-      updatedSocials.splice(index, 1);
-      setSquibSocials(updatedSocials);
+      const storedSquibSocials = getStoredSocials(squibSocialsKey);
+      const updatedSquibSocials = [...storedSquibSocials];
+      updatedSquibSocials.splice(index, 1);
+      setSquibSocials(updatedSquibSocials);
+      setStoredSocials(squibSocialsKey, updatedSquibSocials);
     }
   };
 

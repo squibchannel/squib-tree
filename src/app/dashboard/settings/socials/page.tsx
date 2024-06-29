@@ -21,9 +21,6 @@ function SocialsSettings() {
   return (
     <div>
       <SocialsDisplay />
-      <Button className="mt-4" onClick={handleNewSocial}>
-        Add New Social
-      </Button>
     </div>
   );
 }
