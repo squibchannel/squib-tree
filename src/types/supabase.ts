@@ -97,6 +97,24 @@ export type Database = {
           }
         ];
       };
+      socials: {
+        Row: {
+          created_at: string;
+          id: string;
+          socials: Json | null;
+        };
+        Insert: {
+          created_at?: string;
+          id?: string;
+          socials?: Json | null;
+        };
+        Update: {
+          created_at?: string;
+          id?: string;
+          socials?: Json | null;
+        };
+        Relationships: [];
+      };
       users: {
         Row: {
           email: string | null;

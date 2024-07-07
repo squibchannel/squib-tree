@@ -7,7 +7,6 @@ import {
   CardTitle,
   CardDescription,
   CardContent,
-  CardFooter,
 } from "@/components/ui/card";
 import useTree from "@/hooks/useTree";
 import { useSession } from "next-auth/react";
@@ -16,37 +15,24 @@ import { Button } from "../ui/button";
 import { SocialProps } from "@/lib/const";
 
 function SocialsDisplay() {
-  const {
-    squibSocials,
-    userSocials,
-    addSocialLink,
-    removeSocialLink,
-    handleSocialChange,
-  } = useTree();
+  const { squibSocials, userSocials, removeSocialLink, handleSocialChange } =
+    useTree();
   const session = useSession();
 
   const [socials, setSocials] = useState<SocialProps[]>([]);
   const [editMode, setEditMode] = useState<{ [key: number]: boolean }>({});
   const [tempSocials, setTempSocials] = useState<SocialProps[]>([]);
+  const [isSquib, setIsSquib] = useState<boolean>(false);
 
   useEffect(() => {
     if (session.data?.user.name === "squib_channel") {
       setSocials(squibSocials);
+      setIsSquib(!!session.data?.user.name);
     } else {
       setSocials(userSocials);
+      setIsSquib(!!session.data?.user.name);
     }
-  }, [session.data?.user.name, squibSocials, userSocials]);
-
-  const newSocial = {
-    platform: "twatter",
-    description: "a place to twaaat",
-    href: "x.com",
-  };
-
-  const handleAdd = () => {
-    console.log("New social added");
-    addSocialLink(newSocial, session.data?.user.name === "squib_channel");
-  };
+  }, [session.data?.user.name, squibSocials, userSocials, editMode]);
 
   const handleChange = (
     index: number,
@@ -57,27 +43,37 @@ function SocialsDisplay() {
     updatedSocials[index][field] = value;
     setSocials(updatedSocials);
   };
+
   const handleDelete = (index: number) => {
     if (editMode[index]) {
       // Cancel edit mode
-      setSocials(tempSocials);
+      const oldSocials = [...tempSocials];
+      setSocials(oldSocials);
       setEditMode({ ...editMode, [index]: false });
+
+      //FIXME: Does not re-render and return to the original info on edit click. it remembers anything typed
+
+      // window.location.reload();
     } else {
       // Delete action
-      const isSquib = session.data?.user.name === "squib_channel";
+      //TODO: Investigate possible re-rendering issue on the isSquib check.
+      // Set state and useEffect for check instead?
+      // const isSquib = session.data?.user.name === "squib_channel";
       removeSocialLink(index, isSquib);
       setSocials((prev) => prev.filter((_, i) => i !== index));
     }
   };
 
   const handleEditClick = (index: number) => {
-    setTempSocials([...socials]); // Store the current state to revert if needed
     setEditMode({ ...editMode, [index]: true });
+    const originalSocials = [...socials];
+    setTempSocials(originalSocials);
+    console.log(tempSocials);
   };
 
   const handleSaveClick = (index: number) => {
     setEditMode({ ...editMode, [index]: false });
-    const isSquib = session.data?.user.name === "squib_channel";
+    // const isSquib = session.data?.user.name === "squib_channel";
     handleSocialChange(index, "platform", socials[index].platform, isSquib);
     handleSocialChange(
       index,
@@ -175,9 +171,6 @@ function SocialsDisplay() {
           </ul>
         </CardContent>
       </Card>
-      <Button className="mt-4" onClick={handleAdd}>
-        Add New
-      </Button>
     </>
   );
 }

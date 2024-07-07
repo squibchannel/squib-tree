@@ -1,8 +1,8 @@
 import TwitchBotConfig from "@/components/TwitchBotConfig";
 import React from "react";
 
-function AdvancedSettings() {
+function BotSettings() {
   return <TwitchBotConfig />;
 }
 
-export default AdvancedSettings;
+export default BotSettings;

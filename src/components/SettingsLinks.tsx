@@ -3,6 +3,7 @@
 import React from "react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
+import { settingsLinksList } from "@/lib/const";
 
 function SettingsLinks() {
   const pathname = usePathname();
@@ -11,17 +12,9 @@ function SettingsLinks() {
     return `font-semibold ${href === pathname ? "text-primary" : ""}`;
   }
 
-  const links = [
-    { href: "/dashboard/settings/general", label: "General" },
-    { href: "/dashboard/settings/socials", label: "Socials" },
-    { href: "/dashboard/settings/keys", label: "Api Keys" },
-    { href: "/dashboard/settings/contact", label: "Contact" },
-    { href: "/dashboard/settings/advanced", label: "Advanced" },
-  ];
-
   return (
     <>
-      {links.map((link) => {
+      {settingsLinksList.map((link) => {
         return (
           <Link
             key={link.label + "-key"}

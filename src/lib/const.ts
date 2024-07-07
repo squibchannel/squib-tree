@@ -157,6 +157,14 @@ export const dashboardMenu: dashboardMenu[] = [
   },
 ];
 
+export const settingsLinksList = [
+  { href: "/dashboard/settings/general", label: "General" },
+  { href: "/dashboard/settings/socials", label: "Socials" },
+  { href: "/dashboard/settings/keys", label: "Api Keys" },
+  { href: "/dashboard/settings/contact", label: "Contact" },
+  { href: "/dashboard/settings/bot", label: "Bot Config" },
+];
+
 // twitch scopes
 export const TWITCH_SCOPES = [
   "openid",

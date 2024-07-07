@@ -1,26 +1,31 @@
-"use client";
+"use server";
 
+import AddSocialCard from "@/components/Cards/AddSocialCard";
 import SocialsDisplay from "@/components/Cards/SocialsDisplay";
 import { Button } from "@/components/ui/button";
 import useTree from "@/hooks/useTree";
 import React, { useEffect } from "react";
+import {
+  supabaseAdminConnectUser,
+  supabaseGetUserSocials,
+} from "@/actions/supabaseUtils";
+import { auth } from "@/auth";
 
-function SocialsSettings() {
-  const { addSocialLink } = useTree();
+async function SocialsSettings() {
+  const session = await auth();
 
-  const newSocial = {
-    platform: "twitter",
-    description: "a place to cry",
-    href: "https://x.com/Squibchannel",
-  };
+  if (!session || !session.user.id) {
+    console.log("no session");
+    return;
+  }
 
-  const handleNewSocial = () => {
-    addSocialLink(newSocial, true);
-  };
+  const socials = await supabaseGetUserSocials(session?.user.id);
+  console.log("Our returned socials data", socials);
 
   return (
-    <div>
+    <div className="flex flex-col gap-8">
       <SocialsDisplay />
+      <AddSocialCard />
     </div>
   );
 }
