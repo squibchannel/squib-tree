@@ -58,7 +58,6 @@ function SocialsDisplay() {
       // Delete action
       //TODO: Investigate possible re-rendering issue on the isSquib check.
       // Set state and useEffect for check instead?
-      // const isSquib = session.data?.user.name === "squib_channel";
       removeSocialLink(index, isSquib);
       setSocials((prev) => prev.filter((_, i) => i !== index));
     }
@@ -73,7 +72,7 @@ function SocialsDisplay() {
 
   const handleSaveClick = (index: number) => {
     setEditMode({ ...editMode, [index]: false });
-    // const isSquib = session.data?.user.name === "squib_channel";
+
     handleSocialChange(index, "platform", socials[index].platform, isSquib);
     handleSocialChange(
       index,

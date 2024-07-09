@@ -1,17 +1,6 @@
-import React from "react";
-import {
-  DropdownMenu,
-  DropdownMenuContent,
-  DropdownMenuItem,
-  DropdownMenuLabel,
-  DropdownMenuSeparator,
-  DropdownMenuTrigger,
-} from "@/components/ui/dropdown-menu";
 import { dashboardMenu } from "@/lib/const";
-import { LuLayoutDashboard } from "react-icons/lu";
 import Link from "next/link";
-import { Button } from "../ui/button";
-import { CircleUser } from "lucide-react";
+import { LuLayoutDashboard } from "react-icons/lu";
 
 export default function DashboardNav() {
   return (
