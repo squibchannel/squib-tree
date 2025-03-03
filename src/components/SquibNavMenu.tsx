@@ -74,7 +74,9 @@ export function SquibNavMenu() {
             </ul>
           </NavigationMenuContent>
         </NavigationMenuItem>
-        <NavigationMenuItem className="flex-auto">
+
+        {/* FIXME: Remove for quick deployment  */}
+        {/* <NavigationMenuItem className="flex-auto">
           <NavigationMenuTrigger>Tools</NavigationMenuTrigger>
           <NavigationMenuContent>
             <ul className="grid w-[400px] gap-3 p-4 md:w-[500px] md:grid-cols-2 lg:w-[600px] ">
@@ -85,8 +87,8 @@ export function SquibNavMenu() {
               ></ListItem>
             </ul>
           </NavigationMenuContent>
-        </NavigationMenuItem>
-        <AuthButton />
+        </NavigationMenuItem> */}
+        {/* <AuthButton /> */}
         <span className="!ml-4">
           <ModeToggle />
         </span>
